@@ -248,7 +248,7 @@ a {
 
 .pixel {
   width: 4px;
-  height: 1px;
+  min-height: 1px;
   display: inline-block;
 }
 
