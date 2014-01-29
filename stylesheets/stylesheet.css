@@ -2,6 +2,7 @@
   width: 4px;
   min-height: 1px;
   display: inline-block;
+  float:left;
 }
 
 #pixelContainer {
