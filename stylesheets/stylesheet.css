@@ -245,3 +245,17 @@ a {
 .cf {
   zoom:1;
 }
+
+.pixel {
+  width: 4;
+  height: 1;
+  display: inline-block;
+}
+
+#pixelContainer {
+  width: 400;
+}
+
+.hidden {
+  display: none;
+}
