@@ -1,8 +1,8 @@
-
 .pixel {
   width: 4px;
   min-height: 1px;
   display: inline-block;
+  float:left;
 }
 
 #pixelContainer {
@@ -11,4 +11,9 @@
 
 .hidden {
   display: none;
+}
+
+.content {
+  margin-left: auto;
+  margin-right: auto;
 }

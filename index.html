@@ -1,15 +1,10 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset='utf-8'>
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-
-    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css"/>
     <script src="javascripts/jquery-1.10.2.min.js"></script>
 
-    <title>Videohax by coleww</title>
+    <title>jQuery Camera</title>
   </head>
 
   <body>
@@ -18,15 +13,16 @@
         <video autoplay id="videoElement"></video>
         <canvas id="hiddencanvas" width="500" height="400"></canvas>
     </div>
+    <center>
+      <h3>jQuery camera by <a href="http://www.cpwillsea.com">Cole Willsea</a></h3>
+      Draws images from the webcam to the DOM with lots of divs.
+      <br />
+      <button id="picturebtn">Take a Photo</button><br/>
 
-    <button id="picturebtn">Take a Photo</button><br/>
-    <div id="loading"></div>
 
-    <div id="polaroid">
       <div id="pixelContainer"></div>
-    </div>
 
-    <script src='javascripts/pixelface.js'></script>
-
+      <script src='javascripts/pixelface.js'></script>
+    </center>
   </body>
 </html>
