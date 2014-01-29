@@ -1,12 +1,11 @@
-
 .pixel {
-  width: 4px;
-  min-height: 1px;
+  width: 4;
+  height: 1;
   display: inline-block;
 }
 
 #pixelContainer {
-  width: 400px;
+  width: 400;
 }
 
 .hidden {
