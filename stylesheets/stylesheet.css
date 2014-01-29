@@ -247,13 +247,13 @@ a {
 }
 
 .pixel {
-  width: 4;
-  height: 1;
+  width: 4px;
+  height: 1px;
   display: inline-block;
 }
 
 #pixelContainer {
-  width: 400;
+  width: 400px;
 }
 
 .hidden {
