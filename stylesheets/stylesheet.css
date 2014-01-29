@@ -12,3 +12,8 @@
 .hidden {
   display: none;
 }
+
+.content {
+  margin-left: auto;
+  margin-right: auto;
+}
