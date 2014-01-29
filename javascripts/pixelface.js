@@ -32,7 +32,7 @@ $(function(){
       var g = pixeldata[i + 1];
       var b = pixeldata[i + 2];
       var color = "rgb(" + r + "," + g + "," + b + ")";
-      var pixel = $("<span class='pixel'></span>");
+      var pixel = $("<div class='pixel'></div>");
       pixel.addClass("pixel").css("background-color", color);
       $("#pixelContainer").append(pixel);
     }
