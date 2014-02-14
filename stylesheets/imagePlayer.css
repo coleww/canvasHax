@@ -1,0 +1,22 @@
+.drawing-canvas {
+  margin-bottom: 5px;
+}
+
+.current-image {
+  display:inline-block;
+}
+
+.buttons {
+  display: inline-block;
+  text-align:left;
+}
+
+.left-sliders {
+  display: inline-block;
+  text-align:right;
+}
+
+.right-sliders {
+  display: inline-block;
+  text-align:left;
+}

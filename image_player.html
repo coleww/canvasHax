@@ -1,0 +1,65 @@
+<head>
+  <link href="stylesheets/imagePlayer.css" rel="stylesheet" type="text/css">
+  <title>Abstract Image Player</title>
+</head>
+
+<center>
+  <canvas id="imageCanvas" class="drawing-canvas" width="500" height="500">
+    Your browser doesn't appear to support canvas.
+  </canvas>
+
+  <form>
+    <div class="current-image">
+      current image:
+      <canvas id="currentImage" width="50" height="50">
+      </canvas>
+      <br />
+    </div>
+    <button id="save">Save Image</button>
+    <button id="gif">Create GIF</button>
+    <input type="file" id="imageLoader" name="imageLoader"/>
+    <br />
+    <div class="buttons">
+      Origin<br />
+      <input type="radio" name="start-position" value="origin" checked="true">Original
+      <br />
+      <input type="radio" name="start-position" value="center">Center<br />
+      <input type="radio" name="start-position" value="random">Random<br />
+
+    </div>
+
+    <div class="buttons">
+      Shape<br />
+      <input type="radio" name="stroke-type" value="circle" checked="true">Circle
+      <br />
+      <input type="radio" name="stroke-type" value="square">Square<br />
+      <input type="radio" name="stroke-type" value="random">Random<br />
+
+    </div>
+
+
+    <div class="left-sliders">
+      Transparency
+      <input type="range" id="alpha" min="0.05" max="1" step=".05" value="1" />
+      <br />
+      Size
+      <input type="range" id="circ-size"  min="1" max="100" step="1" value="5"/>
+      <br />
+    </div>
+    <div class="right-sliders">
+      <input type="range" id="num-circles" min="1" max="100" step="1" value="5"/>
+      Number
+      <br />
+      <input type="range" id="circ-move"  min="5" max="100" step="1" value="5"/>
+      Distance
+      <br />
+    </div>
+  </form>
+</center>
+
+<script src="vendor/jquery-1.10.2.min.js"></script>
+<script src="vendor/FileSaver.js"></script>
+<script src="vendor/canvas-toBlob.js"></script>
+<script src="vendor/Animated_GIF.js"></script>
+<script src="vendor/Animated_GIF.worker.js"></script>
+<script src="javascripts/imagePlayer.js"></script>
