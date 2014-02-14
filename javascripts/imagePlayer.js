@@ -24,9 +24,6 @@
     var that = this;
     var img = new Image();
     img.onload = function() {
-      //THIS SHOULD BE ITS OWN FUNCTION AW YEAH
-      //GETS PASSED THE IMAGE AND THE CANVAS OBJECTII THING.
-      //ONLY NEEDS THE CANVAS CORE ATTRS NOT THE UI.
       var imgW = img.width;
       var imgH = img.height;
       that.ctx.drawImage(img, 0, 0, that.w, that.h);
@@ -34,7 +31,7 @@
       if(that.interval) {clearInterval(that.interval);}
       that.drawNewImage(that.ctx);
     };
-    img.src = "images/blacktocat.jpg";
+    img.src = "/images/" + (parseInt(Math.random() * 10) + 1) + ".jpg";
   };
 
   imagePlayer.prototype.drawNewImage = function(ctx) {
