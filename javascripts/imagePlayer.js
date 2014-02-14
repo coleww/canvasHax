@@ -21,14 +21,20 @@
   };
 
   imagePlayer.prototype.drawDefault = function(ctx, currImgCtx) {
-    ctx.fillStyle = "rgb(0, 0, 0)";
-    ctx.fillRect(0,0, this.w, this.h);
-    ctx.fillStyle = "rgb(255, 255, 255)";
-    ctx.font="250px Helvetica";
-    ctx.fillText(" hire",-25,250);
-    ctx.fillText(" me",-25,450);
-    currImgCtx.drawImage(this.canvas, 0, 0, this.w, this.h, 0, 0, 50, 50);
-    this.drawNewImage(ctx);
+    var that = this;
+    var img = new Image();
+    img.onload = function() {
+      //THIS SHOULD BE ITS OWN FUNCTION AW YEAH
+      //GETS PASSED THE IMAGE AND THE CANVAS OBJECTII THING.
+      //ONLY NEEDS THE CANVAS CORE ATTRS NOT THE UI.
+      var imgW = img.width;
+      var imgH = img.height;
+      that.ctx.drawImage(img, 0, 0, that.w, that.h);
+      that.currImgCtx.drawImage(img, 0, 0, imgW, imgH, 0, 0, 50, 50);
+      if(that.interval) {clearInterval(that.interval);}
+      that.drawNewImage(that.ctx);
+    };
+    img.src = "images/blacktocat.jpg";
   };
 
   imagePlayer.prototype.drawNewImage = function(ctx) {
