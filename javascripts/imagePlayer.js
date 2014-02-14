@@ -206,7 +206,7 @@
     var that = this;
     var framesAdded = 0;
     var frames = 6;
-    var ag = new Animated_GIF({ workerPath: 'javascripts/Animated_GIF.worker.js' });
+    var ag = new Animated_GIF({ workerPath: '/canvasHax/vendor/Animated_GIF.worker.js' });
     var gifButton = $("#gif");
     ag.setSize(500, 500);
     ag.setDelay(100);
