@@ -236,4 +236,6 @@ $(function() {
   var canvas = document.getElementById('imageCanvas');
   var currImgCanvas = document.getElementById('currentImage');
   new imagePlayer(canvas, currImgCanvas).play();
+          var animatedImage = document.createElement('img');
+                    document.body.appendChild(animatedImage);
 });
