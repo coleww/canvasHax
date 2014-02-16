@@ -223,6 +223,7 @@
         ag.getBase64GIF(function(image) {
           animatedImage.src = image;
           document.body.appendChild(animatedImage);
+            $('body').append('<p>another test.<p>');
           gifButton.text("Create Gif");
         });
       }
@@ -236,6 +237,5 @@ $(function() {
   var canvas = document.getElementById('imageCanvas');
   var currImgCanvas = document.getElementById('currentImage');
   new imagePlayer(canvas, currImgCanvas).play();
-          var animatedImage = document.createElement('img');
-                    document.body.appendChild(animatedImage);
+  $('body').append('<p>test.<p>');
 });
