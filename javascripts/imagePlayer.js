@@ -13,6 +13,7 @@
     this.strokeType = "circle";
     this.distance = 5;
     this.numElements = 5;
+    this.ctx.lineWidth = 2;
   };
 
   imagePlayer.prototype.play = function() {
@@ -46,8 +47,9 @@
     var that = this;
     this.interval = window.setInterval(function() {
       var currentPixelPosition = that.randomPixelPosition(pixelCount);
-      ctx.fillStyle = that.getFill(pixelData, currentPixelPosition);
-
+      var currentColor = that.getFill(pixelData, currentPixelPosition);
+      ctx.fillStyle = currentColor;
+      ctx.strokeStyle = currentColor;
       var x = that.w;
       var y = that.h;
 
@@ -88,10 +90,10 @@
       this.drawShape(ctx, x, y, this.elementSize * Math.random());
       x += (Math.random() * 2 - 1) * this.distance;
       y += (Math.random() * 2 - 1) * this.distance;
-      if (x < 0 - this.elementSize || y < 0 - this.elementSize ||
-          x > this.w + this.elementSize || y > this.h + this.elementSize) {
-        break;
-      }
+      // if (x < 0 - this.elementSize || y < 0 - this.elementSize ||
+      //     x > this.w + this.elementSize || y > this.h + this.elementSize) {
+      //   break;
+      // }
     }
   };
 
@@ -106,6 +108,9 @@
       break;
     case "random":
       this.drawRandom(ctx, x, y, size);
+      break;
+    case "line":
+      this.drawLine(ctx, x, y, size);
       break;
     }
   };
@@ -133,6 +138,13 @@
     ctx.fill();
   };
 
+  imagePlayer.prototype.drawLine = function(ctx, x, y, size) {
+    var lengths = [Math.random() * size, Math.random() * size * -1, 0];
+    ctx.beginPath();
+    ctx.moveTo(x, y);
+    ctx.lineTo(x + lengths[parseInt(Math.random() * 3, 10)], y + lengths[parseInt(Math.random() * 3, 10)]);
+    ctx.stroke();
+  };
 
   imagePlayer.prototype.installListeners = function() {
     var that = this;
@@ -223,7 +235,6 @@
         ag.getBase64GIF(function(image) {
           animatedImage.src = image;
           document.body.appendChild(animatedImage);
-            $('body').append('<p>another test.<p>');
           gifButton.text("Create Gif");
         });
       }
@@ -237,5 +248,4 @@ $(function() {
   var canvas = document.getElementById('imageCanvas');
   var currImgCanvas = document.getElementById('currentImage');
   new imagePlayer(canvas, currImgCanvas).play();
-  $('body').append('<p>test.<p>');
 });
