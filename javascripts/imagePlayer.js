@@ -63,9 +63,9 @@
   };
 
   imagePlayer.prototype.getStartPosition = function(currentPixelPosition){
-    var x = that.w;
-    var y = that.h;
-    switch(that.elementStart) {
+    var x = this.w;
+    var y = this.h;
+    switch(this.elementStart) {
     case "center":
       x /= 2;
       y /= 2;
@@ -76,8 +76,8 @@
       break;
     case "origin":
       var actualPixel = currentPixelPosition / 4;
-      x = actualPixel % that.w;
-      y = actualPixel / that.h;
+      x = actualPixel % this.w;
+      y = actualPixel / this.h;
       break;
     }
     return [x, y];
