@@ -7,6 +7,7 @@
     this.h = canvas.height;
     this.interval = undefined;
     // /\ canvas junk     \/ attrs
+    this.loopType = "draw";
     this.elementSize = 5;
     this.alpha = 1;
     this.elementStart = "origin";
@@ -32,7 +33,7 @@
       if(that.interval) {clearInterval(that.interval);}
       that.drawNewImage(that.ctx);
     };
-    img.src = "/canvasHax/images/" + (parseInt(Math.random() * 10) + 1) + ".jpg";
+    img.src = "canvasHax/images/" + (parseInt(Math.random() * 10) + 1) + ".jpg";
   };
 
   imagePlayer.prototype.drawNewImage = function(ctx) {
@@ -40,7 +41,11 @@
     var pixelCount = pixelData.length / 4;
     ctx.fillStyle = "rgb(0, 0, 0)";
     ctx.fillRect(0,0, this.w, this.h);
-    this.startLoop(ctx, pixelData, pixelCount);
+    if (this.loopType === "draw") {
+      this.startLoop(ctx, pixelData, pixelCount);
+    } else {
+      this.startSlitLoop(ctx, pixelData, pixelCount);
+    }
   };
 
   imagePlayer.prototype.startLoop = function(ctx, pixelData, pixelCount) {
@@ -164,6 +169,11 @@
       that.numElements = $(e.target).val();
     });
 
+    $("input:radio[name=loop-type]").change(function(e) {
+      e.preventDefault();
+      that.loopType = $(event.target).val();
+    });
+
     $("input:radio[name=start-position]").change(function(e) {
       e.preventDefault();
       that.elementStart = $(event.target).val();
@@ -240,6 +250,53 @@
       }
     }, 1000);
   };
+
+
+
+
+
+
+
+
+
+
+
+
+
+  imagePlayer.prototype.startSlitLoop = function(ctx, pixelData, pixelCount){
+    var that = this;
+    this.interval = window.setInterval(function() {
+      var startingPixelPosition = that.randomRowStart(pixelCount);
+      var colors = that.getSlitColors(pixelData, startingPixelPosition);
+      that.drawSlits(ctx, colors);
+    }, 50);
+  };
+
+  imagePlayer.prototype.drawSlits = function(ctx, colors){
+    for(i = 0; i < 500; i+= 1){
+      ctx.strokeStyle = colors.shift();
+      ctx.beginPath();
+      ctx.moveTo(i, 0);
+      ctx.lineTo(i, 500);
+      ctx.stroke();
+    }
+  };
+
+  imagePlayer.prototype.randomRowStart = function(pixelCount){
+    //presuming a square canvas
+    var rowCount = Math.sqrt(pixelCount);
+    var startPixel = rowCount * parseInt(Math.random() * rowCount, 10) * 4;
+    return startPixel;
+  };
+
+  imagePlayer.prototype.getSlitColors = function(pixelData, startPosition){
+    var colors = [];
+    for(var i = 0; i < 2000; i+= 4){
+      colors.push(this.getFill(pixelData, startPosition + i));
+    }
+    return colors;
+  };
+
 
 })(this);
 
