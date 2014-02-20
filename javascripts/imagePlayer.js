@@ -33,7 +33,7 @@
       if(that.interval) {clearInterval(that.interval);}
       that.drawNewImage(that.ctx);
     };
-    img.src = "/images/" + (parseInt(Math.random() * 10) + 1) + ".jpg";
+    img.src = "/canvasHax/images/" + (parseInt(Math.random() * 10) + 1) + ".jpg";
   };
 
   imagePlayer.prototype.drawNewImage = function(ctx) {
