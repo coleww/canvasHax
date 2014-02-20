@@ -55,7 +55,7 @@
       var currentColor = that.getFill(pixelData, currentPixelPosition);
       ctx.fillStyle = currentColor;
       ctx.strokeStyle = currentColor;
-      var coords = getStartPosition(currentPixelPosition);
+      var coords = this.getStartPosition(currentPixelPosition);
       var x = coords[0];
       var y = coords[1];
       that.draw(ctx, x, y);
