@@ -33,7 +33,7 @@
       if(that.interval) {clearInterval(that.interval);}
       that.drawNewImage(that.ctx);
     };
-    img.src = "canvasHax/images/" + (parseInt(Math.random() * 10) + 1) + ".jpg";
+    img.src = "/images/" + (parseInt(Math.random() * 10) + 1) + ".jpg";
   };
 
   imagePlayer.prototype.drawNewImage = function(ctx) {
@@ -55,28 +55,32 @@
       var currentColor = that.getFill(pixelData, currentPixelPosition);
       ctx.fillStyle = currentColor;
       ctx.strokeStyle = currentColor;
-      var x = that.w;
-      var y = that.h;
-
-      //COULD be a method that gets passed w, h, currentPP
-      switch(that.elementStart) {
-      case "center":
-        x /= 2;
-        y /= 2;
-        break;
-      case "random":
-        x *= Math.random();
-        y *= Math.random();
-        break;
-      case "origin":
-        var actualPixel = currentPixelPosition / 4;
-        x = actualPixel % that.w;
-        y = actualPixel / that.h;
-        break;
-      }
-
+      var coords = getStartPosition(currentPixelPosition);
+      var x = coords[0];
+      var y = coords[1];
       that.draw(ctx, x, y);
     }, 5);
+  };
+
+  imagePlayer.prototype.getStartPosition = function(currentPixelPosition){
+    var x = that.w;
+    var y = that.h;
+    switch(that.elementStart) {
+    case "center":
+      x /= 2;
+      y /= 2;
+      break;
+    case "random":
+      x *= Math.random();
+      y *= Math.random();
+      break;
+    case "origin":
+      var actualPixel = currentPixelPosition / 4;
+      x = actualPixel % that.w;
+      y = actualPixel / that.h;
+      break;
+    }
+    return [x, y];
   };
 
   imagePlayer.prototype.randomPixelPosition = function(pixelCount) {
