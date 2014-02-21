@@ -1,22 +1,26 @@
-.drawing-canvas {
-  margin-bottom: 5px;
-}
-
 .current-image {
   display:inline-block;
 }
 
 .buttons {
   display: inline-block;
-  text-align:left;
+/*  text-align:left;*/
 }
 
-.left-sliders {
+.slider-opt {
   display: inline-block;
-  text-align:right;
+  width: 75px;
 }
 
-.right-sliders {
+.sliders {
   display: inline-block;
-  text-align:left;
+}
+
+.hide {
+  display: none;
+}
+
+.opts {
+  display: inline-block;
+  vertical-align: top
 }
