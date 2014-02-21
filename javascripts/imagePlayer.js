@@ -25,7 +25,7 @@
     this.numElements = 5;
 
     //slit opts
-    this.lineWidth = 10;
+    this.lineWidth = 1;
     this.slitType = "vertical";
   };
 
@@ -34,27 +34,27 @@
     this.installListeners();
     this.installDrawListeners();
     this.installSlitListeners();
-    this.drawDefault(this.ctx, this.currImgCtx);
+    this.loadAndDraw(this.pickRandomImage());
   };
-
-  imagePlayer.prototype.drawDefault = function(ctx, currImgCtx) {
+  //CAN THIS BRO GET ADDED TO DRAWNEWIMAGE??????????????????????????????????????????//
+  imagePlayer.prototype.loadAndDraw = function(imgSource) {
     var that = this;
     var img = new Image();
     img.onload = function() {
       that.drawNewImage(img);
     };
-    img.src = "/canvasHax/images/" + (parseInt(Math.random() * 10) + 1) + ".jpg";
+    img.src = imgSource;
+  };
+
+  imagePlayer.prototype.pickRandomImage = function() {
+    return "/images/" + (parseInt(Math.random() * 10) + 1) + ".jpg";
   };
 
   imagePlayer.prototype.handleImage = function(e) {
     var that = this;
     var reader = new FileReader();
     reader.onload = function(event) {
-      var img = new Image(); //TECHNICALLY repeating the code above. could be abstracted? SHOULD BE DUH DRY!
-      img.onload = function() {
-        that.drawNewImage(img);
-      };
-      img.src = event.target.result;
+      that.loadAndDraw(event.target.result);
     };
     reader.readAsDataURL(e.target.files[0]);
   };
@@ -198,12 +198,13 @@
   };
 
   imagePlayer.prototype.drawSlits = function(ctx, colors) {
-    for(var i = 0; i < 500; i += 1){
-      ctx.strokeStyle = colors.shift();
+    for(var i = 0; i < 500; i += parseInt(this.lineWidth)) {
+      ctx.strokeStyle = colors[i];
       ctx.beginPath();
       ctx.moveTo(i, 0);
       ctx.lineTo(i, 500);
       ctx.stroke();
+      console.log(i);
     }
   };
 
@@ -223,7 +224,10 @@
     return colors;
   };
 
+
 //UI LISTENER INSTALLLLLLATION!
+//OH this could get passed an image player?
+//70 lines of jquery listeners :/
   imagePlayer.prototype.installListeners = function() {
     var that = this;
     $("input:radio[name=loop-type]").change(function(e) {
