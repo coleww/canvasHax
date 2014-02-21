@@ -47,7 +47,7 @@
   };
 
   imagePlayer.prototype.pickRandomImage = function() {
-    return "/images/" + (parseInt(Math.random() * 10) + 1) + ".jpg";
+    return "/canvasHax/images/" + (parseInt(Math.random() * 10) + 1) + ".jpg";
   };
 
   imagePlayer.prototype.handleImage = function(e) {
