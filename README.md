@@ -11,3 +11,15 @@ Default settings will draw an approximation of the original image, but if you pu
 User can save a frame of the image, or create an animated gif.
 
 [Play with it](http://coleww.github.io/canvasHax/)
+
+
+TODO:
+
+Slit Scan mode: add vertical/horizontal selector, stroke width...?
+
+Improve GUI so it swaps between drawing shapes and drawing slits
+--thus also tweak the imagePlayer code so that it keeps a copy of the current image
+--Backbone? or just some jQuery spaghetti...
+--OH DUH 2 menus which have css toggles for visibility and which reboot the image player thing on click.
+
+SHAPES: draw triangles.
