@@ -190,21 +190,54 @@
   imagePlayer.prototype.startSlitLoop = function(ctx, pixelData, pixelCount) {
     var that = this;
     this.interval = window.setInterval(function() {
-      var startingPixelPosition = that.randomRowStart(pixelCount);
-      var colors = that.getSlitColors(pixelData, startingPixelPosition);
+      var colors = that.getColors(pixelCount, pixelData);
       that.ctx.lineWidth = that.lineWidth;
       that.drawSlits(ctx, colors);
     }, 50);
   };
 
   imagePlayer.prototype.drawSlits = function(ctx, colors) {
-    for(var i = 0; i < 500; i += parseInt(this.lineWidth)) {
+    // instead of 500, this.width + this.linewidth
+    for(var i = 0; i < 500; i += parseInt(this.lineWidth, 10)) {
       ctx.strokeStyle = colors[i];
       ctx.beginPath();
-      ctx.moveTo(i, 0);
-      ctx.lineTo(i, 500);
+      if (this.slitType === "horizontal") {
+        ctx.moveTo(0, i);
+        ctx.lineTo(500, i);
+      } else if (this.slitType === "vertical") {
+        ctx.moveTo(i, 0);
+        ctx.lineTo(i, 500);
+      } else {
+        ctx.moveTo(0, i);
+        ctx.lineTo(250, 250);
+        ctx.strokeStyle = colors[i+500];
+        ctx.moveTo(i, 0);
+        ctx.lineTo(250, 250);
+        ctx.strokeStyle = colors[i];
+        ctx.moveTo(500, i);
+        ctx.lineTo(250, 250);
+        ctx.strokeStyle = colors[i+500];
+        ctx.moveTo(i, 500);
+        ctx.lineTo(250, 250);
+      }
       ctx.stroke();
-      console.log(i);
+    }
+  };
+
+  imagePlayer.prototype.getColors = function(pixelCount, pixelData) {
+    var startingPixelPosition;
+    if (this.slitType === "horizontal") {
+      startingPixelPosition = this.randomRowStart(pixelCount);
+      return this.getRowColors(pixelData, startingPixelPosition);
+    } else if (this.slitType === "vertical") {
+      startingPixelPosition = this.randomColStart(pixelCount);
+      return this.getColColors(pixelData, startingPixelPosition);
+    } else {
+      var rowStart = this.randomRowStart(pixelCount);
+      var colStart = this.randomColStart(pixelCount);
+      var rowColors = this.getRowColors(pixelData, rowStart);
+      var colColors = this.getColColors(pixelData, colStart);
+      return rowColors.concat(colColors);
     }
   };
 
@@ -216,14 +249,29 @@
     return startPixel;
   };
 
-  imagePlayer.prototype.getSlitColors = function(pixelData, startPosition) {
+  imagePlayer.prototype.getRowColors = function(pixelData, startPosition) {
     var colors = [];
+    //2000 magic number, this.h * 4 instead?
     for(var i = 0; i < 2000; i+= 4){
       colors.push(this.getFill(pixelData, startPosition + i));
     }
     return colors;
   };
 
+  imagePlayer.prototype.randomColStart = function(pixelCount) {
+    var colCount = Math.sqrt(pixelCount);
+    var startPixel = parseInt(Math.random() * colCount) * 4;
+    return startPixel;
+  };
+
+  imagePlayer.prototype.getColColors = function(pixelData, startPosition) {
+    var colors = [];
+    //start position is btwn 0 and 500 (*4)
+    for(var i = 0; i < pixelData.length; i+= 2000){
+      colors.push(this.getFill(pixelData, startPosition + i));
+    }
+    return colors;
+  };
 
 //UI LISTENER INSTALLLLLLATION!
 //OH this could get passed an image player?
@@ -293,9 +341,9 @@
       that.lineWidth = $(e.target).val();
     });
 
-    $("input:radio[name=start-position]").change(function(e) {
+    $("input:radio[name=line-type]").change(function(e) {
       e.preventDefault();
-      that.slitType = $(event.target).val();
+      that.slitType = $(e.target).val();
     });
   };
 
