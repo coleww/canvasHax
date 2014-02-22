@@ -12,14 +12,12 @@ User can save a frame of the image, or create an animated gif.
 
 [Play with it](http://coleww.github.io/canvasHax/)
 
+The "brain" behind this app is also used by a node bot which [posts to Tumblr](http://www.gif-ebooks.tumblr.com)
 
 TODO:
 
-Slit Scan mode: add vertical/horizontal selector, stroke width...?
+Split JS logic out into multiple files
+Maybe move some of the drawing logic into a canvas library?
+Abstract away any magic numbers that were hardcoded
 
-Improve GUI so it swaps between drawing shapes and drawing slits
---thus also tweak the imagePlayer code so that it keeps a copy of the current image
---Backbone? or just some jQuery spaghetti...
---OH DUH 2 menus which have css toggles for visibility and which reboot the image player thing on click.
-
-SHAPES: draw triangles.
+SHAPES: draw triangles...octagons...ummm....
