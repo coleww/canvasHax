@@ -227,11 +227,12 @@
   imagePlayer.prototype.getColors = function(pixelCount, pixelData) {
     var startingPixelPosition;
     if (this.slitType === "horizontal") {
-      startingPixelPosition = this.randomRowStart(pixelCount);
-      return this.getRowColors(pixelData, startingPixelPosition);
-    } else if (this.slitType === "vertical") {
       startingPixelPosition = this.randomColStart(pixelCount);
       return this.getColColors(pixelData, startingPixelPosition);
+    } else if (this.slitType === "vertical") {
+      startingPixelPosition = this.randomRowStart(pixelCount);
+      return this.getRowColors(pixelData, startingPixelPosition);
+
     } else {
       var rowStart = this.randomRowStart(pixelCount);
       var colStart = this.randomColStart(pixelCount);

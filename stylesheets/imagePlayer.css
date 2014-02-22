@@ -4,6 +4,7 @@
 
 .buttons {
   display: inline-block;
+  margin: 5px;
 }
 
 .slider-opt {
@@ -21,5 +22,10 @@
 
 .opts {
   display: inline-block;
-  vertical-align: top
+  vertical-align: top;
+  margin-left: 5px;
+}
+
+.container {
+  margin-left: 50px;
 }

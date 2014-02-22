@@ -6,6 +6,9 @@
 </head>
 
 <body>
+  <div class="container">
+  <h1>Abstract Image Player</h1>
+  <p>created by <a href="http://www.cpwillsea.com">Cole Willsea</a>, code available <a href="https://github.com/coleww/canvasHax">here</a></p>
 
   <canvas id="imageCanvas" class="drawing-canvas" width="500" height="500">
     Your browser doesn't appear to support canvas.
@@ -24,11 +27,12 @@
       Loop Type<br/>
       <input type="radio" name="loop-type" value="draw" checked="true">Draw<br />
       <input type="radio" name="loop-type" value="slit">Slit Scan
+      <br/>
     </div>
 
 
     <div id="slit-opts" class="hide">
-      <div class="buttons"><br />
+      <div class="buttons">Slit Type<br />
         <input type="radio" name="line-type" value="vertical" checked="true">Vertical<br />
         <input type="radio" name="line-type" value="horizontal">Horizontal<br />
         <input type="radio" name="line-type" value="converge">Converge<br />
@@ -79,7 +83,7 @@
 
     </div>
   </div>
-
+</div>
 <script src="vendor/jquery-1.10.2.min.js"></script>
 <script src="vendor/FileSaver.js"></script>
 <script src="vendor/canvas-toBlob.js"></script>
