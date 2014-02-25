@@ -21,3 +21,11 @@ Maybe move some of the drawing logic into a canvas library?
 Abstract away any magic numbers that were hardcoded
 
 SHAPES: draw triangles...octagons...ummm....
+
+IMAGES: improve the default group of images. Go for maximum variety of colors/etc.
+
+LINES: set ctx.lineWidth to be a remapping of size to ???
+
+OPACITY: when switching between draw and slit, reset opacity to whatever that slider is. OR be sloppy and keep 2 opacity values.
+
+ERROR: figure out why the node bot sometimes creates non animated gifs (random origin setting is a likely culprit)
