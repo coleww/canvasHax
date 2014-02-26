@@ -198,7 +198,7 @@
 
   imagePlayer.prototype.drawSlits = function(ctx, colors) {
     // instead of 500, this.width + this.linewidth
-    for(var i = 0; i < 500; i += parseInt(this.lineWidth, 10)) {
+    for(var i = 0; i < 550; i += parseInt(this.lineWidth, 10)) {
       ctx.strokeStyle = colors[i];
       ctx.beginPath();
       if (this.slitType === "horizontal") {
