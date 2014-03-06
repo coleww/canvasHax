@@ -271,21 +271,4 @@
     }
     return colors;
   };
-
-//UI LISTENER INSTALLLLLLATION!
-//OH this could get passed an image player?
-//70 lines of jquery listeners :/
-
-
-//IMAGE SAVING LOGICS
-
 })(this);
-
-
-$(function() {
-  var canvas = document.getElementById('imageCanvas');
-  var currImgCanvas = document.getElementById('currentImage');
-  var ip = new imagePlayer.Player(canvas, currImgCanvas);
-  new imagePlayer.PlayerUI(ip, new imagePlayer.Saver(canvas));
-  ip.play();
-});
