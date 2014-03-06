@@ -2,10 +2,10 @@
   Array.prototype.sample = function(){
     return this[Math.floor(Math.random() * this.length)];
   };
-//OH NO nearing 300 lines must break out into multiple files cuz this is crazy :<
-//OH I WISH I DID THIS OBJECT BASED AND NOT FUNCITON-Y
-//do i just make imagePLayer = root.imagePlayer declarations at start of files that MUST be loaded after this one that declares the main function?
-  var imagePlayer = root.imagePlayer = function(canvas, currImageCanvas) {
+
+  var imagePlayer = root.imagePlayer = (root.imagePlayer || {});
+
+  var Player = imagePlayer.Player = function(canvas, currImageCanvas) {
     this.canvas = canvas;
     this.ctx = canvas.getContext('2d');
     this.currImgCtx = currImageCanvas.getContext('2d');
@@ -30,14 +30,12 @@
   };
 
 //KICKOFF LOGICS
-  imagePlayer.prototype.play = function() {
-    this.installListeners();
-    this.installDrawListeners();
-    this.installSlitListeners();
+  Player.prototype.play = function() {
+    //maybe construct the UI object here?
     this.loadAndDraw(this.pickRandomImage());
   };
   //CAN THIS BRO GET ADDED TO DRAWNEWIMAGE??????????????????????????????????????????//
-  imagePlayer.prototype.loadAndDraw = function(imgSource) {
+  Player.prototype.loadAndDraw = function(imgSource) {
     var that = this;
     var img = new Image();
     img.onload = function() {
@@ -46,11 +44,11 @@
     img.src = imgSource;
   };
 
-  imagePlayer.prototype.pickRandomImage = function() {
-    return "/canvasHax/images/" + (parseInt(Math.random() * 10) + 1) + ".jpg";
-  };
+  Player.prototype.pickRandomImage = function() {
+    return "/images/" + (parseInt(Math.random() * 10) + 1) + ".jpg";
+  };///canvasHax
 
-  imagePlayer.prototype.handleImage = function(e) {
+  Player.prototype.handleImage = function(e) {
     var that = this;
     var reader = new FileReader();
     reader.onload = function(event) {
@@ -59,7 +57,7 @@
     reader.readAsDataURL(e.target.files[0]);
   };
 
-  imagePlayer.prototype.drawNewImage = function(img) {
+  Player.prototype.drawNewImage = function(img) {
     this.img = img;
 
     this.ctx.drawImage(img, 0, 0, this.w, this.h);
@@ -80,7 +78,7 @@
   };
 
 //DRAW LOOP LOGIC!!!!!!!!!!!!!!!!!!!!!!!!!
-  imagePlayer.prototype.startDrawLoop = function(ctx, pixelData, pixelCount) {
+  Player.prototype.startDrawLoop = function(ctx, pixelData, pixelCount) {
     var that = this;
     this.interval = window.setInterval(function() {
       var currentPixelPosition = that.randomPixelPosition(pixelCount);
@@ -94,7 +92,7 @@
     }, 5);
   };
 
-  imagePlayer.prototype.getStartPosition = function(currentPixelPosition){
+  Player.prototype.getStartPosition = function(currentPixelPosition){
     var x = this.w;
     var y = this.h;
     switch(this.elementStart) {
@@ -115,18 +113,18 @@
     return [x, y];
   };
 
-  imagePlayer.prototype.randomPixelPosition = function(pixelCount) {
+  Player.prototype.randomPixelPosition = function(pixelCount) {
     return parseInt(Math.random() * pixelCount , 10) * 4;
   };
 
-  imagePlayer.prototype.getFill = function(pixelData, currentPixelPosition) {
+  Player.prototype.getFill = function(pixelData, currentPixelPosition) {
     var r = pixelData[currentPixelPosition];
     var g = pixelData[currentPixelPosition + 1];
     var b = pixelData[currentPixelPosition + 2];
     return "rgba(" + r + "," + g + "," + b + "," + this.alpha + ")";
   };
 
-  imagePlayer.prototype.draw = function(ctx, x, y) {
+  Player.prototype.draw = function(ctx, x, y) {
     for(var i = 0; i < this.numElements; i++) {
       this.drawShape(ctx, x, y, this.elementSize * Math.random());
       x += (Math.random() * 2 - 1) * this.distance;
@@ -138,7 +136,7 @@
     }
   };
 
-  imagePlayer.prototype.drawShape = function(ctx, x, y, size) {
+  Player.prototype.drawShape = function(ctx, x, y, size) {
     switch(this.strokeType) {
     case "circle":
       this.drawCircle(ctx, x, y, size);
@@ -155,17 +153,17 @@
     }
   };
 
-  imagePlayer.prototype.drawCircle = function(ctx, x, y, size) {
+  Player.prototype.drawCircle = function(ctx, x, y, size) {
     ctx.beginPath();
     ctx.arc(x, y, size, 0, 2 * Math.PI, false);
     ctx.fill();
   };
 
-  imagePlayer.prototype.drawSquare = function(ctx, x, y, size) {
+  Player.prototype.drawSquare = function(ctx, x, y, size) {
     ctx.fillRect(x - size, y - size, size * 2, size * 2);
   };
 
-  imagePlayer.prototype.drawRandom = function(ctx, x, y, size) {
+  Player.prototype.drawRandom = function(ctx, x, y, size) {
     size *= 2;
     var startX = x - (Math.random() * size);
     var startY = y - (Math.random() * size);
@@ -178,7 +176,7 @@
     ctx.fill();
   };
 
-  imagePlayer.prototype.drawLine = function(ctx, x, y, size) {
+  Player.prototype.drawLine = function(ctx, x, y, size) {
     var lengths = [Math.random() * size, Math.random() * size * -1, 0];
     ctx.beginPath();
     ctx.moveTo(x, y);
@@ -187,7 +185,7 @@
   };
 
 //THE SLIT DRAWING LOGIC!!!!!!!!!!!!!!!!!!
-  imagePlayer.prototype.startSlitLoop = function(ctx, pixelData, pixelCount) {
+  Player.prototype.startSlitLoop = function(ctx, pixelData, pixelCount) {
     var that = this;
     this.interval = window.setInterval(function() {
       var colors = that.getColors(pixelCount, pixelData);
@@ -196,7 +194,7 @@
     }, 50);
   };
 
-  imagePlayer.prototype.drawSlits = function(ctx, colors) {
+  Player.prototype.drawSlits = function(ctx, colors) {
     // instead of 500, this.width + this.linewidth
     for(var i = 0; i < 550; i += parseInt(this.lineWidth, 10)) {
       ctx.strokeStyle = colors[i];
@@ -224,7 +222,7 @@
     }
   };
 
-  imagePlayer.prototype.getColors = function(pixelCount, pixelData) {
+  Player.prototype.getColors = function(pixelCount, pixelData) {
     var startingPixelPosition;
     if (this.slitType === "horizontal") {
       startingPixelPosition = this.randomColStart(pixelCount);
@@ -242,7 +240,7 @@
     }
   };
 
-  imagePlayer.prototype.randomRowStart = function(pixelCount) {
+  Player.prototype.randomRowStart = function(pixelCount) {
     //presuming a square canvas
     //ABSTRACT THIS FOOL!
     var rowCount = Math.sqrt(pixelCount);
@@ -250,7 +248,7 @@
     return startPixel;
   };
 
-  imagePlayer.prototype.getRowColors = function(pixelData, startPosition) {
+  Player.prototype.getRowColors = function(pixelData, startPosition) {
     var colors = [];
     //2000 magic number, this.h * 4 instead?
     for(var i = 0; i < 2000; i+= 4){
@@ -259,13 +257,13 @@
     return colors;
   };
 
-  imagePlayer.prototype.randomColStart = function(pixelCount) {
+  Player.prototype.randomColStart = function(pixelCount) {
     var colCount = Math.sqrt(pixelCount);
     var startPixel = parseInt(Math.random() * colCount) * 4;
     return startPixel;
   };
 
-  imagePlayer.prototype.getColColors = function(pixelData, startPosition) {
+  Player.prototype.getColColors = function(pixelData, startPosition) {
     var colors = [];
     //start position is btwn 0 and 500 (*4)
     for(var i = 0; i < pixelData.length; i+= 2000){
@@ -277,85 +275,16 @@
 //UI LISTENER INSTALLLLLLATION!
 //OH this could get passed an image player?
 //70 lines of jquery listeners :/
-  imagePlayer.prototype.installListeners = function() {
-    var that = this;
-    $("input:radio[name=loop-type]").change(function(e) {
-      e.preventDefault();
-      that.loopType = $(event.target).val();
-      $("#slit-opts").toggleClass("hide");
-      $("#draw-opts").toggleClass("hide");
-      that.drawNewImage(that.img);
-    });
 
-    $("#save").click(function(e) {
-      e.preventDefault();
-      that.saveImage();
-    });
-
-    $("#gif").click(function(e) {
-      e.preventDefault();
-      that.createGIF();
-    });
-
-    $('#imageLoader').change(function(e) {
-      e.preventDefault();
-      that.handleImage(e);
-    });
-  };
-
-  imagePlayer.prototype.installDrawListeners = function() {
-    var that = this;
-    $("#alpha").change(function(e) {
-      that.alpha = $(e.target).val();
-    });
-
-    $("#shape-size").change(function(e) {
-      that.elementSize = $(e.target).val();
-    });
-
-    $("#shape-move").change(function(e) {
-      that.distance = $(e.target).val();
-    });
-
-    $("#num-shapes").change(function(e) {
-      that.numElements = $(e.target).val();
-    });
-
-    $("input:radio[name=start-position]").change(function(e) {
-      e.preventDefault();
-      that.elementStart = $(event.target).val();
-    });
-
-    $("input:radio[name=stroke-type]").change(function(e) {
-      e.preventDefault();
-      that.strokeType = $(event.target).val();
-    });
-  };
-
-  imagePlayer.prototype.installSlitListeners = function() {
-    var that = this;
-    $("#line-alpha").change(function(e) {
-      that.alpha = $(e.target).val();
-    });
-
-    $("#line-width").change(function(e) {
-      that.lineWidth = $(e.target).val();
-    });
-
-    $("input:radio[name=line-type]").change(function(e) {
-      e.preventDefault();
-      that.slitType = $(e.target).val();
-    });
-  };
 
 //IMAGE SAVING LOGICS
-  imagePlayer.prototype.saveImage = function() {
+  Player.prototype.saveImage = function() {
     this.canvas.toBlob(function(blob) {
-      saveAs(blob, "ImagePlayer.png");
+      saveAs(blob, "Player.png");
     });
   };
 
-  imagePlayer.prototype.createGIF = function() {
+  Player.prototype.createGIF = function() {
     var that = this;
     var framesAdded = 0;
     var frames = 6;
@@ -390,5 +319,7 @@
 $(function() {
   var canvas = document.getElementById('imageCanvas');
   var currImgCanvas = document.getElementById('currentImage');
-  new imagePlayer(canvas, currImgCanvas).play();
+  var ip = new imagePlayer.Player(canvas, currImgCanvas);
+  new imagePlayer.PlayerUI(ip);
+  ip.play();
 });
