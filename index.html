@@ -7,101 +7,111 @@
 
 <body>
   <div class="container">
-  <h1>Abstract Image Player</h1>
-  <p>created by <a href="http://www.cpwillsea.com" target="_blank">Cole Willsea</a>, code available <a href="https://github.com/coleww/canvasHax" target="_blank">here</a>, and also used to run <a href="http://gif-ebooks.tumblr.com/" target="_blank">GIF eBooks: the artistic Node bot</a></p>
+    <h1>Abstract Image Player</h1>
+    <p>
+      created by <a href="http://www.cpwillsea.com" target="_blank">Cole Willsea</a>,
+      code is available <a href="https://github.com/coleww/canvasHax" target="_blank">here</a>,
+      and also used to run <a href="http://gif-ebooks.tumblr.com/" target="_blank">GIF eBooks</a>.
+    </p>
 
-  <canvas id="imageCanvas" class="drawing-canvas" width="500" height="500">
-    Your browser doesn't appear to support canvas.
-  </canvas>
+    <canvas id="imageCanvas" class="drawing-canvas" width="500" height="500">
+      Your browser doesn't appear to support canvas.
+    </canvas>
 
-  <div class="opts">
-    <input type="file" id="imageLoader" name="imageLoader"/><br />
-    <div class="current-image">
-      current image:
-      <canvas id="currentImage" width="100" height="100"></canvas>
-    </div><br />
-    <button id="save">Save Image</button>
-    <button id="gif">Create GIF</button><br />
-    <br />
-    <div class="buttons">
-      Loop Type<br/>
-      <input type="radio" name="loop-type" value="shapes" checked="true">Shapes<br />
-      <input type="radio" name="loop-type" value="slits">Slits
-      <br/>
-    </div>
+    <div class="opts">
+      <input type="file" id="imageLoader" name="imageLoader"/>
+      <br />
+      <div class="current-image">
+        current image:
+        <canvas id="currentImage" width="100" height="100"></canvas>
+      </div>
+      <br />
+      <button id="save">Save Image</button>
+      <button id="gif">Create GIF</button>
+      <br />
+      <br />
+      <div class="buttons">
+        Loop Type<br/>
+        <input type="radio" name="loop-type" value="shapes" checked="true">Shapes
+        <br />
+        <input type="radio" name="loop-type" value="slits">Slits
+        <br/>
+      </div>
 
 
-    <div id="slit-opts" class="hide">
-      <div class="buttons">Slit Type<br />
-        <input type="radio" name="line-type" value="vertical" checked="true">Vertical<br />
-        <input type="radio" name="line-type" value="horizontal">Horizontal<br />
-        <input type="radio" name="line-type" value="converge">Converge<br />
-      </div><br />
+      <div id="slit-opts" class="hide">
+        <div class="buttons">Slit Type<br />
+          <input type="radio" name="line-type" value="vertical" checked="true">Vertical
+          <br />
+          <input type="radio" name="line-type" value="horizontal">Horizontal
+          <br />
+          <input type="radio" name="line-type" value="converge">Converge
+          <br />
+        </div><br />
 
-      <div class="sliders">
+        <div class="sliders">
+          <span class="slider-opt">Opacity</span>
+          <input type="range" id="line-alpha" min="0.05" max="1" step=".05" value="1">
+          <br />
+          <span class="slider-opt">Line Width</span>
+          <input type="range" id="line-width"  min="1" max="50" step="1" value="1">
+          <br />
+        </div>
+
+      </div>
+
+
+      <div id="draw-opts">
+        <div class="buttons">
+          Origin<br />
+          <input type="radio" name="start-position" value="origin" checked="true">Original
+          <br />
+          <input type="radio" name="start-position" value="center">Center<br />
+          <input type="radio" name="start-position" value="random">Random<br /><br />
+        </div>
+
+        <div class="buttons">
+          Shape<br />
+          <input type="radio" name="stroke-type" value="circle" checked="true">Circle
+          <br />
+          <input type="radio" name="stroke-type" value="square">Square<br />
+          <input type="radio" name="stroke-type" value="random">Random<br />
+          <input type="radio" name="stroke-type" value="line">Line<br />
+        </div><br />
+
         <span class="slider-opt">Opacity</span>
-        <input type="range" id="line-alpha" min="0.05" max="1" step=".05" value="1" />
+        <input type="range" id="alpha" min="0.05" max="1" step=".05" value="1">
         <br />
-        <span class="slider-opt">Line Width</span>
-        <input type="range" id="line-width"  min="1" max="50" step="1" value="1"/>
+        <span class="slider-opt">Size</span>
+        <input type="range" id="shape-size"  min="1" max="100" step="1" value="5">
+        <br />
+        <span class="slider-opt">Number</span>
+        <input type="range" id="num-shapes" min="1" max="100" step="1" value="5">
+        <br />
+        <span class="slider-opt">Distance</span>
+        <input type="range" id="shape-move"  min="5" max="100" step="1" value="5">
         <br />
       </div>
-
-    </div>
-
-
-    <div id="draw-opts">
-      <div class="buttons">
-        Origin<br />
-        <input type="radio" name="start-position" value="origin" checked="true">Original
-        <br />
-        <input type="radio" name="start-position" value="center">Center<br />
-        <input type="radio" name="start-position" value="random">Random<br /><br />
-      </div>
-
-      <div class="buttons">
-        Shape<br />
-        <input type="radio" name="stroke-type" value="circle" checked="true">Circle
-        <br />
-        <input type="radio" name="stroke-type" value="square">Square<br />
-        <input type="radio" name="stroke-type" value="random">Random<br />
-        <input type="radio" name="stroke-type" value="line">Line<br />
-      </div><br />
-
-      <span class="slider-opt">Opacity</span>
-      <input type="range" id="alpha" min="0.05" max="1" step=".05" value="1" />
-      <br />
-      <span class="slider-opt">Size</span>
-      <input type="range" id="shape-size"  min="1" max="100" step="1" value="5"/>
-      <br />
-      <span class="slider-opt">Number</span>
-      <input type="range" id="num-shapes" min="1" max="100" step="1" value="5"/>
-      <br />
-      <span class="slider-opt">Distance</span>
-      <input type="range" id="shape-move"  min="5" max="100" step="1" value="5"/>
-      <br />
-
     </div>
   </div>
-</div>
-<script src="vendor/jquery-1.10.2.min.js"></script>
-<script src="vendor/FileSaver.js"></script>
-<script src="vendor/canvas-toBlob.js"></script>
-<script src="vendor/Animated_GIF.js"></script>
-<script src="vendor/Animated_GIF.worker.js"></script>
-<script src="javascripts/imagePlayer.js"></script>
-<script src="javascripts/imagePlayerUI.js"></script>
-<script src="javascripts/imageSaver.js"></script>
-<script src="javascripts/shapeMode.js"></script>
-<script src="javascripts/slitMode.js"></script>
-<script>
-  $(function() {
-    var canvas = document.getElementById('imageCanvas');
-    var currImgCanvas = document.getElementById('currentImage');
-    var ip = new imagePlayer.Player(canvas, currImgCanvas);
-    new imagePlayer.PlayerUI(ip, new imagePlayer.Saver(canvas));
-    ip.play();
-  });
-</script>
+  <script src="vendor/jquery-1.10.2.min.js"></script>
+  <script src="vendor/FileSaver.js"></script>
+  <script src="vendor/canvas-toBlob.js"></script>
+  <script src="vendor/Animated_GIF.js"></script>
+  <script src="vendor/Animated_GIF.worker.js"></script>
+  <script src="javascripts/imagePlayer.js"></script>
+  <script src="javascripts/imagePlayerUI.js"></script>
+  <script src="javascripts/imageSaver.js"></script>
+  <script src="javascripts/shapeMode.js"></script>
+  <script src="javascripts/slitMode.js"></script>
+  <script>
+    $(function() {
+      var canvas = document.getElementById('imageCanvas');
+      var currImgCanvas = document.getElementById('currentImage');
+      var ip = new imagePlayer.Player(canvas, currImgCanvas);
+      new imagePlayer.PlayerUI(ip, new imagePlayer.Saver(canvas));
+      ip.play();
+    });
+  </script>
 </body>
 </html>
