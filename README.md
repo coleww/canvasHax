@@ -12,20 +12,29 @@ User can save a frame of the image, or create an animated gif.
 
 [Play with it](http://coleww.github.io/canvasHax/)
 
-The "brain" behind this app is also used by a node bot which [posts to Tumblr](http://www.gif-ebooks.tumblr.com)
+This code is also used by a node bot which [posts to Tumblr](http://www.gif-ebooks.tumblr.com)
 
-TODO:
 
-Split JS logic out into multiple files
-Maybe move some of the drawing logic into a canvas library?
-Abstract away any magic numbers that were hardcoded
+
+TODO/BUGS/TECHNICAL DEBT:
+
+getFill is the only logic shared between shapes and slit mode ATM.
+-do inheritance once a third mode is added.
+-check modes for potential abstractions.
+
+UI listener installation is kind of horrendous?
+
+Abstract away any magic numbers that were hardcoded. Should work same no matter what canvas w/h are.
 
 SHAPES: draw triangles...octagons...ummm....
 
-IMAGES: improve the default group of images. Go for maximum variety of colors/etc.
+IMAGES: improve the default group of images. Go for maximum variety of colors/etc. LOW FILE SIZE!
 
-LINES: set ctx.lineWidth to be a remapping of size to ???
+shapesMode: LINES: set ctx.lineWidth to be a remapping of size to ???
 
-OPACITY: when switching between draw and slit, reset opacity to whatever that slider is. OR be sloppy and keep 2 opacity values.
+SLITS: converge mode. Fix the weird vetruvian man thing. Shuffle up which corner gets drawn when?
 
 ERROR: figure out why the node bot sometimes creates non animated gifs (random origin setting is a likely culprit)
+//Is the node bot just making >1mb images or something?
+
+ADD STYLING TO THE PAGE WTF
