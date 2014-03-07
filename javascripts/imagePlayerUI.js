@@ -14,7 +14,7 @@
     var player = this.player;
     var saver = this.saver;
     $("input:radio[name=loop-type]").change(function(e) {
-      player.loopType = $(event.target).val();
+      player.loopType = $(e.target).val();
       $("#slit-opts").toggleClass("hide");
       $("#draw-opts").toggleClass("hide");
       player.drawNewImage(player.img);
@@ -52,11 +52,11 @@
     });
 
     $("input:radio[name=start-position]").change(function(e) {
-      shapeMode.settings.elementStart = $(event.target).val();
+      shapeMode.settings.elementStart = $(e.target).val();
     });
 
     $("input:radio[name=stroke-type]").change(function(e) {
-      shapeMode.settings.strokeType = $(event.target).val();
+      shapeMode.settings.strokeType = $(e.target).val();
     });
   };
 
