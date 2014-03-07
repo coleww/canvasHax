@@ -39,47 +39,47 @@
     });
   };
 
-  PlayerUI.prototype.installObjectListeners = function(objectMode) {
+  PlayerUI.prototype.installObjectListeners = function(shapeMode) {
     $("#alpha").change(function(e) {
-      objectMode.settings.alpha = $(e.target).val();
+      shapeMode.settings.alpha = $(e.target).val();
     });
 
     $("#shape-size").change(function(e) {
-      objectMode.settings.elementSize = $(e.target).val();
+      shapeMode.settings.elementSize = $(e.target).val();
     });
 
     $("#shape-move").change(function(e) {
-      objectMode.settings.distance = $(e.target).val();
+      shapeMode.settings.distance = $(e.target).val();
     });
 
     $("#num-shapes").change(function(e) {
-      objectMode.settings.numElements = $(e.target).val();
+      shapeMode.settings.numElements = $(e.target).val();
     });
 
     $("input:radio[name=start-position]").change(function(e) {
       e.preventDefault();
-      objectMode.settings.elementStart = $(event.target).val();
+      shapeMode.settings.elementStart = $(event.target).val();
     });
 
     $("input:radio[name=stroke-type]").change(function(e) {
       e.preventDefault();
-      objectMode.settings.strokeType = $(event.target).val();
+      shapeMode.settings.strokeType = $(event.target).val();
     });
   };
 
-  PlayerUI.prototype.installSlitListeners = function() {
-    var player = this.player;
+  PlayerUI.prototype.installSlitListeners = function(slitMode) {
+
     $("#line-alpha").change(function(e) {
-      player.alpha = $(e.target).val();
+      slitMode.settings.alpha = $(e.target).val();
     });
 
     $("#line-width").change(function(e) {
-      player.lineWidth = $(e.target).val();
+      slitMode.settings.lineWidth = $(e.target).val();
     });
 
     $("input:radio[name=line-type]").change(function(e) {
       e.preventDefault();
-      player.slitType = $(e.target).val();
+      slitMode.settings.slitType = $(e.target).val();
     });
   };
 })(this);
