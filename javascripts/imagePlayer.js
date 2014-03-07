@@ -38,8 +38,8 @@
   };
 
   Player.prototype.pickRandomImage = function() {
-    return "/images/" + (Math.floor(Math.random() * 10) + 1) + ".jpg";
-  };///canvasHax
+    return "/canvasHax/images/" + (Math.floor(Math.random() * 10) + 1) + ".jpg";
+  };//
 
   Player.prototype.handleImage = function(e) {
     var that = this;
