@@ -12,7 +12,7 @@
     this.h = canvas.height;
     this.interval = undefined;
     this.img = undefined;
-    // /\ canvas junk
+
     this.loopType = "shapes";
     this.modes = {
       shapes: new imagePlayer.shapeMode(this.ctx, this.w, this.h),
@@ -62,13 +62,13 @@
     if(this.interval) {
       clearInterval(this.interval);
     }
-    this.startLoop(this.ctx, pixelData, pixelCount);
+    this.startLoop(pixelData, pixelCount);
   };
 
-  Player.prototype.startLoop = function(ctx, pixelData, pixelCount) {
+  Player.prototype.startLoop = function(pixelData, pixelCount) {
     var that = this;
     this.interval = window.setInterval(function() {
-      that.modes[that.loopType].playLoop(ctx, pixelData, pixelCount);
+      that.modes[that.loopType].playLoop(pixelData, pixelCount);
     }, 5);
   };
 })(this);

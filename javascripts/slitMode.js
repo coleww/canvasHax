@@ -5,7 +5,6 @@
     this.ctx = ctx;
     this.w = w;
     this.h = h;
-//FIX THIS
     this.settings = {
       lineWidth: 1,
       slitType: "vertical",
@@ -14,37 +13,38 @@
   };
 
 //THE SLIT DRAWING LOGIC!!!!!!!!!!!!!!!!!!
-  slitMode.prototype.playLoop = function(ctx, pixelData, pixelCount) {
+  slitMode.prototype.playLoop = function(pixelData, pixelCount) {
       var colors = this.getColors(pixelCount, pixelData);
-      ctx.lineWidth = this.settings.lineWidth;
-      this.draw(ctx, colors);
+      this.ctx.lineWidth = this.settings.lineWidth;
+      this.draw(colors);
   };
-
-  slitMode.prototype.draw = function(ctx, colors) {
+//ROLL OUT DIFFERENT DRAW FUNCITONS?
+  slitMode.prototype.draw = function(colors) {
     // instead of 500, this.width + this.linewidth
     for(var i = 0; i < 550; i += parseInt(this.settings.lineWidth, 10)) {
-      ctx.strokeStyle = colors[i];
-      ctx.beginPath();
+
+      this.ctx.strokeStyle = colors[i];
+      this.ctx.beginPath();
       if (this.settings.slitType === "horizontal") {
-        ctx.moveTo(0, i);
-        ctx.lineTo(500, i);
+        this.ctx.moveTo(0, i);
+        this.ctx.lineTo(500, i);
       } else if (this.settings.slitType === "vertical") {
-        ctx.moveTo(i, 0);
-        ctx.lineTo(i, 500);
+        this.ctx.moveTo(i, 0);
+        this.ctx.lineTo(i, 500);
       } else {
-        ctx.moveTo(0, i);
-        ctx.lineTo(250, 250);
-        ctx.strokeStyle = colors[i+500];
-        ctx.moveTo(i, 0);
-        ctx.lineTo(250, 250);
-        ctx.strokeStyle = colors[i];
-        ctx.moveTo(500, i);
-        ctx.lineTo(250, 250);
-        ctx.strokeStyle = colors[i+500];
-        ctx.moveTo(i, 500);
-        ctx.lineTo(250, 250);
+        this.ctx.moveTo(0, i);
+        this.ctx.lineTo(250, 250);
+        this.ctx.strokeStyle = colors[i+500];
+        this.ctx.moveTo(i, 0);
+        this.ctx.lineTo(250, 250);
+        this.ctx.strokeStyle = colors[i];
+        this.ctx.moveTo(500, i);
+        this.ctx.lineTo(250, 250);
+        this.ctx.strokeStyle = colors[i+500];
+        this.ctx.moveTo(i, 500);
+        this.ctx.lineTo(250, 250);
       }
-      ctx.stroke();
+      this.ctx.stroke();
     }
   };
 
@@ -69,7 +69,7 @@
     //presuming a square canvas
     //ABSTRACT THIS FOOL!
     var rowCount = Math.sqrt(pixelCount);
-    var startPixel = rowCount * parseInt(Math.random() * rowCount, 10) * 4;
+    var startPixel = rowCount * Math.floor(Math.random() * rowCount) * 4;
     return startPixel;
   };
 
@@ -84,7 +84,7 @@
 
   slitMode.prototype.randomColStart = function(pixelCount) {
     var colCount = Math.sqrt(pixelCount);
-    var startPixel = parseInt(Math.random() * colCount) * 4;
+    var startPixel = Math.floor(Math.random() * colCount) * 4;
     return startPixel;
   };
 
@@ -97,7 +97,7 @@
     return colors;
   };
 
-//DUPLICATED CODE
+//DUPLICATED CODE, ABSTRACT! INHERIT! WTF
   slitMode.prototype.getFill = function(pixelData, currentPixelPosition) {
     var r = pixelData[currentPixelPosition];
     var g = pixelData[currentPixelPosition + 1];
