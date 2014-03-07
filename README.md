@@ -38,3 +38,4 @@ ERROR: figure out why the node bot sometimes creates non animated gifs (random o
 //Is the node bot just making >1mb images or something?
 
 ADD STYLING TO THE PAGE WTF
+USE STRICT?

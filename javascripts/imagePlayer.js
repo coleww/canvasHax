@@ -1,4 +1,7 @@
 (function(root) {
+  //where does this belong?
+  //hacks.js with Array.prototype.getFill?
+  //UGH! write a pixelArray class with proper get methods!!!!!
   Array.prototype.sample = function(){
     return this[Math.floor(Math.random() * this.length)];
   };
