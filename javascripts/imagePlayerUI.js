@@ -8,8 +8,8 @@
     //though one method that does all listeners,
     //its basically a factory?
     this.installListeners();
-    this.installDrawListeners();
-    this.installSlitListeners();
+    this.installObjectListeners(player.modes.shapes);
+    this.installSlitListeners(player.modes.slits);
   };
 
   PlayerUI.prototype.installListeners = function() {
@@ -39,32 +39,31 @@
     });
   };
 
-  PlayerUI.prototype.installDrawListeners = function() {
-    var player = this.player;
+  PlayerUI.prototype.installObjectListeners = function(objectMode) {
     $("#alpha").change(function(e) {
-      player.alpha = $(e.target).val();
+      objectMode.settings.alpha = $(e.target).val();
     });
 
     $("#shape-size").change(function(e) {
-      player.elementSize = $(e.target).val();
+      objectMode.settings.elementSize = $(e.target).val();
     });
 
     $("#shape-move").change(function(e) {
-      player.distance = $(e.target).val();
+      objectMode.settings.distance = $(e.target).val();
     });
 
     $("#num-shapes").change(function(e) {
-      player.numElements = $(e.target).val();
+      objectMode.settings.numElements = $(e.target).val();
     });
 
     $("input:radio[name=start-position]").change(function(e) {
       e.preventDefault();
-      player.elementStart = $(event.target).val();
+      objectMode.settings.elementStart = $(event.target).val();
     });
 
     $("input:radio[name=stroke-type]").change(function(e) {
       e.preventDefault();
-      player.strokeType = $(event.target).val();
+      objectMode.settings.strokeType = $(event.target).val();
     });
   };
 
