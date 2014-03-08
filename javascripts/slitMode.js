@@ -22,7 +22,7 @@
     //ACK! ONLY WORKS FOR SQUARE CANVII
     var centerX = this.w / 2;
     var centerY = this.h / 2;
-    for(var i = 0; i < this.width + this.settings.lineWidth; i += parseInt(this.settings.lineWidth, 10)) {
+    for(var i = 0; i < this.w + this.settings.lineWidth; i += parseInt(this.settings.lineWidth, 10)) {
       this.ctx.strokeStyle = colors[i];
       this.ctx.beginPath();
       if (this.settings.slitType === "horizontal") {
@@ -47,6 +47,57 @@
         this.ctx.moveTo(i, 500);
         this.ctx.lineTo(centerX, centerY);
       }
+      this.ctx.stroke();
+    }
+  };
+
+  slitMode.prototype.drawConvergence = function(colors){
+        var centerX = this.w / 2;
+    var centerY = this.h / 2;
+    for(var i = 0; i < this.width + this.settings.lineWidth; i += parseInt(this.settings.lineWidth, 10)) {
+
+      this.ctx.beginPath();
+
+      //left sidec
+      this.ctx.strokeStyle = colors[i];
+      this.ctx.moveTo(0, i);
+      this.ctx.lineTo(centerX, centerY);
+
+      //
+      this.ctx.strokeStyle = colors[i+this.w];
+      this.ctx.moveTo(i, 0);
+      this.ctx.lineTo(centerX, centerY);
+
+      this.ctx.strokeStyle = colors[i];
+      this.ctx.moveTo(this.w, i);
+      this.ctx.lineTo(centerX, centerY);
+
+      this.ctx.strokeStyle = colors[i+this.w];
+      this.ctx.moveTo(i, this.h);
+      this.ctx.lineTo(centerX, centerY);
+
+      this.ctx.stroke();
+    }
+  };
+
+  slitMode.prototype.drawHorizontal = function(colors){
+    var lineSize = parseInt(this.settings.lineWidth, 10);
+    for(var i = 0; i < this.width + this.settings.lineWidth; i += lineSize) {
+      this.ctx.strokeStyle = colors[i];
+      this.ctx.beginPath();
+      this.ctx.moveTo(0, i);
+      this.ctx.lineTo(this.w, i);
+      this.ctx.stroke();
+    }
+  };
+
+  slitMode.prototype.drawVertical = function(colors){
+    var lineSize = parseInt(this.settings.lineWidth, 10);
+    for(var i = 0; i < this.height + this.settings.lineWidth; i += lineSize) {
+      this.ctx.strokeStyle = colors[i];
+      this.ctx.beginPath();
+      this.ctx.moveTo(0, i);
+      this.ctx.lineTo(this.w, i);
       this.ctx.stroke();
     }
   };
