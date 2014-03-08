@@ -1,5 +1,5 @@
 (function(root){
-  //takes in a canvas context, width, and height.
+  //takes in a context, width, and height.
   //a "pixel" is a 4 element array. 0 => R, 1 => G, 2 => B, 3 => A
   var PixelArray = root.PixelArray = function(ctx, w, h){
     this._pixels = ctx.getImageData(0, 0, w, h).data;
@@ -13,7 +13,7 @@
       throw "OUTTA BOUNDS!";
     }
     var pixelPosition = (y * this.w + x) * 4;
-    return this._pixels.slice(pixelPosition, pixelPosition + 5);
+    return this._pixels.slice(pixelPosition, pixelPosition + 4);
   };
 
   PixelArray.prototype.randomPixel = function(){

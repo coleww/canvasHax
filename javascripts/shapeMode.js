@@ -15,10 +15,10 @@
     };
 
     this.shapes = {
-      "circle": this.drawCircle,
-      "square": this.drawSquare,
-      "random": this.drawRandom,
-      "line": this.drawLine
+      "circle": this.drawCircle.bind(this.ctx),
+      "square": this.drawSquare.bind(this.ctx),
+      "random": this.drawRandom.bind(this.ctx),
+      "line": this.drawLine.bind(this.ctx)
     };
   };
 
@@ -66,33 +66,33 @@
   };
 
   shapeMode.prototype.drawCircle = function(x, y, size) {
-    this.ctx.beginPath();
-    this.ctx.arc(x, y, size, 0, 2 * Math.PI, false);
-    this.ctx.fill();
+    this.beginPath();
+    this.arc(x, y, size, 0, 2 * Math.PI, false);
+    this.fill();
   };
 
   shapeMode.prototype.drawSquare = function(x, y, size) {
-    this.ctx.fillRect(x - size, y - size, size * 2, size * 2);
+    this.fillRect(x - size, y - size, size * 2, size * 2);
   };
 
   shapeMode.prototype.drawRandom = function(x, y, size) {
     size *= 2;
     var startX = x - (Math.random() * size);
     var startY = y - (Math.random() * size);
-    this.ctx.beginPath();
-    this.ctx.moveTo(startX, startY);
-    this.ctx.lineTo(x + (size * Math.random()), y - (size * Math.random()));
-    this.ctx.lineTo(x + (size * Math.random()), y + (size * Math.random()));
-    this.ctx.lineTo(x - (size * Math.random()), y + (size * Math.random()));
-    this.ctx.lineTo(startX, startY);
-    this.ctx.fill();
+    this.beginPath();
+    this.moveTo(startX, startY);
+    this.lineTo(x + (size * Math.random()), y - (size * Math.random()));
+    this.lineTo(x + (size * Math.random()), y + (size * Math.random()));
+    this.lineTo(x - (size * Math.random()), y + (size * Math.random()));
+    this.lineTo(startX, startY);
+    this.fill();
   };
 
   shapeMode.prototype.drawLine = function(x, y, size) {
     var lengths = [Math.random() * size, Math.random() * size * -1, 0];
-    this.ctx.beginPath();
-    this.ctx.moveTo(x, y);
-    this.ctx.lineTo(x + lengths.sample(), y + lengths.sample());
-    this.ctx.stroke();
+    this.beginPath();
+    this.moveTo(x, y);
+    this.lineTo(x + lengths.sample(), y + lengths.sample());
+    this.stroke();
   };
 })(this);

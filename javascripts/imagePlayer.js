@@ -1,18 +1,4 @@
 (function(root) {
-  //where does this belong?
-  //hacks.js with Array.prototype.getFill?
-  //UGH! write a pixelArray class with proper get methods!!!!!
-  Array.prototype.sample = function(){
-    return this[Math.floor(Math.random() * this.length)];
-  };
-  if (typeof Uint8ClampedArray !== 'undefined') {
-    Uint8ClampedArray.prototype.slice = Array.prototype.slice; //Firefox and Chrome
-  } else if(typeof CanvasPixelArray!== 'undefined') {
-    CanvasPixelArray.prototype.slice = Array.prototype.slice; //IE10 and IE9
-  } else {
-    // Deprecated browser
-  }
-
   var imagePlayer = root.imagePlayer = (root.imagePlayer || {});
   var Player = imagePlayer.Player = function(canvas, currImageCanvas) {
     this.canvas = canvas;
