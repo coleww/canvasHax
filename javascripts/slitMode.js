@@ -12,96 +12,55 @@
     };
   };
 
-//THE SLIT DRAWING LOGIC!!!!!!!!!!!!!!!!!!
-  slitMode.prototype.playLoop = function(pixelData, pixelCount) {
-      var colors = this.getColors(pixelCount, pixelData);
+  slitMode.prototype.playLoop = function(pixelArray) {
+      var colors = this.getColors(pixelArray);
       this.ctx.lineWidth = this.settings.lineWidth;
       this.draw(colors);
   };
-//ROLL OUT DIFFERENT DRAW FUNCITONS?
-  slitMode.prototype.draw = function(colors) {
-    // instead of 500, this.width + this.linewidth
-    for(var i = 0; i < 550; i += parseInt(this.settings.lineWidth, 10)) {
 
+  slitMode.prototype.draw = function(colors) {
+    //ACK! ONLY WORKS FOR SQUARE CANVII
+    var centerX = this.w / 2;
+    var centerY = this.h / 2;
+    for(var i = 0; i < this.width + this.settings.lineWidth; i += parseInt(this.settings.lineWidth, 10)) {
       this.ctx.strokeStyle = colors[i];
       this.ctx.beginPath();
       if (this.settings.slitType === "horizontal") {
         this.ctx.moveTo(0, i);
-        this.ctx.lineTo(500, i);
+        this.ctx.lineTo(this.w, i);
       } else if (this.settings.slitType === "vertical") {
         this.ctx.moveTo(i, 0);
-        this.ctx.lineTo(i, 500);
+        this.ctx.lineTo(i, this.h);
       } else {
         this.ctx.moveTo(0, i);
-        this.ctx.lineTo(250, 250);
-        this.ctx.strokeStyle = colors[i+500];
+        this.ctx.lineTo(centerX, centerY);
+
+        this.ctx.strokeStyle = colors[i+this.w];
         this.ctx.moveTo(i, 0);
-        this.ctx.lineTo(250, 250);
+        this.ctx.lineTo(centerX, centerY);
+
         this.ctx.strokeStyle = colors[i];
-        this.ctx.moveTo(500, i);
-        this.ctx.lineTo(250, 250);
-        this.ctx.strokeStyle = colors[i+500];
+        this.ctx.moveTo(this.w, i);
+        this.ctx.lineTo(centerX, centerY);
+
+        this.ctx.strokeStyle = colors[i+this.w];
         this.ctx.moveTo(i, 500);
-        this.ctx.lineTo(250, 250);
+        this.ctx.lineTo(centerX, centerY);
       }
       this.ctx.stroke();
     }
   };
 
-  slitMode.prototype.getColors = function(pixelCount, pixelData) {
-    var startingPixelPosition;
+  slitMode.prototype.getColors = function(pixelArray) {
+    var coords = pixelArray.randomCoords();
     if (this.settings.slitType === "horizontal") {
-      startingPixelPosition = this.randomColStart(pixelCount);
-      return this.getColColors(pixelData, startingPixelPosition);
+      return pixelArray.getCol(coords[0], this.settings.alpha);
     } else if (this.settings.slitType === "vertical") {
-      startingPixelPosition = this.randomRowStart(pixelCount);
-      return this.getRowColors(pixelData, startingPixelPosition);
+      return pixelArray.getRow(coords[1], this.settings.alpha);
     } else {
-      var rowStart = this.randomRowStart(pixelCount);
-      var colStart = this.randomColStart(pixelCount);
-      var rowColors = this.getRowColors(pixelData, rowStart);
-      var colColors = this.getColColors(pixelData, colStart);
+      var rowColors = pixelArray.getRow(coords[0], this.settings.alpha);
+      var colColors = pixelArray.getCol(coords[1], this.settings.alpha);
       return rowColors.concat(colColors);
     }
-  };
-
-  slitMode.prototype.randomRowStart = function(pixelCount) {
-    //presuming a square canvas
-    //ABSTRACT THIS FOOL!
-    var rowCount = Math.sqrt(pixelCount);
-    var startPixel = rowCount * Math.floor(Math.random() * rowCount) * 4;
-    return startPixel;
-  };
-
-  slitMode.prototype.getRowColors = function(pixelData, startPosition) {
-    var colors = [];
-    //2000 magic number, this.h * 4 instead?
-    for(var i = 0; i < 2000; i+= 4){
-      colors.push(this.getFill(pixelData, startPosition + i));
-    }
-    return colors;
-  };
-
-  slitMode.prototype.randomColStart = function(pixelCount) {
-    var colCount = Math.sqrt(pixelCount);
-    var startPixel = Math.floor(Math.random() * colCount) * 4;
-    return startPixel;
-  };
-
-  slitMode.prototype.getColColors = function(pixelData, startPosition) {
-    var colors = [];
-    //start position is btwn 0 and 500 (*4)
-    for(var i = 0; i < pixelData.length; i+= 2000){
-      colors.push(this.getFill(pixelData, startPosition + i));
-    }
-    return colors;
-  };
-
-//DUPLICATED CODE, ABSTRACT! INHERIT! WTF
-  slitMode.prototype.getFill = function(pixelData, currentPixelPosition) {
-    var r = pixelData[currentPixelPosition];
-    var g = pixelData[currentPixelPosition + 1];
-    var b = pixelData[currentPixelPosition + 2];
-    return "rgba(" + r + "," + g + "," + b + "," + this.settings.alpha + ")";
   };
 })(this);
