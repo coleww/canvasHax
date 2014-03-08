@@ -5,6 +5,13 @@
   Array.prototype.sample = function(){
     return this[Math.floor(Math.random() * this.length)];
   };
+  if (typeof Uint8ClampedArray !== 'undefined') {
+    Uint8ClampedArray.prototype.slice = Array.prototype.slice; //Firefox and Chrome
+  } else if(typeof CanvasPixelArray!== 'undefined') {
+    CanvasPixelArray.prototype.slice = Array.prototype.slice; //IE10 and IE9
+  } else {
+    // Deprecated browser
+  }
 
   var imagePlayer = root.imagePlayer = (root.imagePlayer || {});
   var Player = imagePlayer.Player = function(canvas, currImageCanvas) {
@@ -38,8 +45,8 @@
   };
 
   Player.prototype.pickRandomImage = function() {
-    return "/canvasHax/images/" + (Math.floor(Math.random() * 10) + 1) + ".jpg";
-  };//
+    return "/images/" + (Math.floor(Math.random() * 10) + 1) + ".jpg";
+  };// /canvasHax
 
   Player.prototype.handleImage = function(e) {
     var that = this;
@@ -64,7 +71,7 @@
 
   Player.prototype.startLoop = function() {
     var that = this;
-    var pixelArray = new pixelArray(this.ctx, this.w, this.h);
+    var pixelArray = new PixelArray(this.ctx, this.w, this.h);
 //option to clear on restart?
     this.ctx.fillStyle = "rgb(0, 0, 0)";
     this.ctx.fillRect(0,0, this.w, this.h);

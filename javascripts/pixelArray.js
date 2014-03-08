@@ -1,11 +1,11 @@
-(function(){
+(function(root){
   //takes in a canvas context, width, and height.
   //a "pixel" is a 4 element array. 0 => R, 1 => G, 2 => B, 3 => A
-  var PixelArray = function(ctx, w, h){
+  var PixelArray = root.PixelArray = function(ctx, w, h){
     this._pixels = ctx.getImageData(0, 0, w, h).data;
     this.w = w;
     this.h = h;
-    this.numPixels = pixelData.length / 4;
+    this.numPixels = this._pixels.length / 4;
   };
 
   PixelArray.prototype.getPixel = function(x, y){
@@ -37,7 +37,7 @@
   PixelArray.prototype.getRow = function(y, alpha){
     var colors = [];
     // var pixels = [];
-    for(var i = 0; i < width; i++){
+    for(var i = 0; i < this.w; i++){
       var pixel = this.getPixel(i, y);
       var color = this.getColor(pixel, alpha);
       colors.push(color);
@@ -51,7 +51,7 @@
   PixelArray.prototype.getCol = function(x, alpha){
     var colors = [];
     // var pixels = [];
-    for(var i = 0; i < height; i++){
+    for(var i = 0; i < this.h; i++){
       var pixel = this.getPixel(x, i);
       var color = this.getColor(pixel, alpha);
       colors.push(color);
@@ -64,4 +64,4 @@
   PixelArray.prototype.centerCoords = function(){
     return [this.w / 2, this.h / 2];
   };
-})();
+})(this);
