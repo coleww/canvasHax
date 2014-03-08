@@ -14,28 +14,30 @@ User can save a frame of the image, or create an animated gif.
 
 This code is also used by a node bot which [posts to Tumblr](http://www.gif-ebooks.tumblr.com)
 
-
+________________________________________________________________________--
 
 TODO/BUGS/TECHNICAL DEBT:
 
-getFill is the only logic shared between shapes and slit mode ATM.
+* getFill is the only logic shared between shapes and slit mode ATM.
 -do inheritance once a third mode is added.
 -check modes for potential abstractions.
 
-UI listener installation is kind of horrendous?
+* UI listener installation is kind of horrendous?
 
-Abstract away any magic numbers that were hardcoded. Should work same no matter what canvas w/h are.
+* Abstract away any magic numbers that were hardcoded. Should work same no matter what canvas w/h are.
 
-SHAPES: draw triangles...octagons...ummm....
+* SHAPES: draw triangles...octagons...ummm....
 
-IMAGES: improve the default group of images. Go for maximum variety of colors/etc. LOW FILE SIZE!
+* IMAGES: improve the default group of images. Go for maximum variety of colors/etc. LOW FILE SIZE!
 
-shapesMode: LINES: set ctx.lineWidth to be a remapping of size to ???
+* shapesMode: LINES: set ctx.lineWidth to be a remapping of size to ???
 
-SLITS: converge mode. Fix the weird vetruvian man thing. Shuffle up which corner gets drawn when?
+* SLITS: converge mode. Fix the weird vetruvian man thing. Shuffle up which corner gets drawn when?
 
-ERROR: figure out why the node bot sometimes creates non animated gifs (random origin setting is a likely culprit)
+* ERROR: figure out why the node bot sometimes creates non animated gifs (random origin setting is a likely culprit)
 //Is the node bot just making >1mb images or something?
 
-ADD STYLING TO THE PAGE WTF
-USE STRICT?
+* how to ease updates between this & nodebot? share a repo but different branches? or just pain every time i make major changes?
+
+* ADD STYLING TO THE PAGE WTF
+* USE STRICT?

@@ -57,7 +57,7 @@
     });
 
     $("input:radio[name=stroke-type]").change(function(e) {
-      shapeMode.settings.shape = $(e.target).val();
+      shapeMode.settings.drawShape = $(e.target).val();
     });
   };
 
