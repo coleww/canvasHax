@@ -56,22 +56,24 @@
     this.ctx.drawImage(img, 0, 0, this.w, this.h);
     this.currImgCtx.drawImage(img, 0, 0, img.width, img.height, 0, 0, 100, 100);
 
-    var pixelData = this.ctx.getImageData(0, 0, this.w, this.h).data;
-    var pixelCount = pixelData.length / 4;
+    // var pixelData = this.ctx.getImageData(0, 0, this.w, this.h).data;
+    // var pixelCount = pixelData.length / 4;
 
+    this.startLoop();
+  };
+
+  Player.prototype.startLoop = function() {
+    var that = this;
+    var pixelArray = new pixelArray(this.ctx, this.w, this.h);
+//option to clear on restart?
     this.ctx.fillStyle = "rgb(0, 0, 0)";
     this.ctx.fillRect(0,0, this.w, this.h);
 
     if(this.interval) {
       clearInterval(this.interval);
     }
-    this.startLoop(pixelData, pixelCount);
-  };
-
-  Player.prototype.startLoop = function(pixelData, pixelCount) {
-    var that = this;
     this.interval = window.setInterval(function() {
-      that.modes[that.loopType].playLoop(pixelData, pixelCount);
+      that.modes[that.loopType].playLoop(pixelArray);
     }, 5);
   };
 })(this);

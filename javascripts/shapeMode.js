@@ -9,83 +9,59 @@
       elementSize: 5,
       alpha: 1,
       elementStart: "origin",
-      strokeType: "circle",
+      drawShape: "circle",
       distance: 5,
       numElements: 5
     };
+
+    this.shapes = {
+      "circle": this.drawCircle,
+      "square": this.drawSquare,
+      "random": this.drawRandom,
+      "line": this.drawLine
+    };
   };
 
-  shapeMode.prototype.playLoop = function(pixelData, pixelCount) {
-    var currentPixelPosition = this.randomPixelPosition(pixelCount);
-    var currentColor = this.getFill(pixelData, currentPixelPosition);
-    this.ctx.fillStyle = currentColor;
-    this.ctx.strokeStyle = currentColor;
-    var coords = this.getStartPosition(currentPixelPosition);
+  shapeMode.prototype.playLoop = function(pixelArray) {
+    var coords = pixelArray.randomCoords();
     var x = coords[0];
     var y = coords[1];
-    this.draw(x, y);
-  };
-
-  shapeMode.prototype.getStartPosition = function(currentPixelPosition){
-    var x = this.w;
-    var y = this.h;
+    var pixel = pixelArray.getPixel(x, y);
+    var color = pixelArray.getColor(pixel, this.settings.alpha);
+    this.ctx.fillStyle = color;
+    this.ctx.strokeStyle = color;
     switch(this.settings.elementStart) {
-    case "center":
-      x /= 2;
-      y /= 2;
-      break;
-    case "random":
-      x *= Math.random();
-      y *= Math.random();
-      break;
-    case "origin":
-      var actualPixel = currentPixelPosition / 4;
-      x = actualPixel % this.w;
-      y = actualPixel / this.h;
-      break;
+      case "center":
+        coords = pixelArray.centerCoords();
+        x = coords[0];
+        y = coords[1];
+        break;
+      case "random":
+        coords = pixelArray.randomCoords();
+        x = coords[0];
+        y = coords[1];
+        break;
+      case "origin":
+        break;
     }
-    return [x, y];
-  };
 
-  shapeMode.prototype.randomPixelPosition = function(pixelCount) {
-    return Math.floor(Math.random() * pixelCount) * 4;
-  };
-
-  shapeMode.prototype.getFill = function(pixelData, currentPixelPosition) {
-    var r = pixelData[currentPixelPosition];
-    var g = pixelData[currentPixelPosition + 1];
-    var b = pixelData[currentPixelPosition + 2];
-    return "rgba(" + r + "," + g + "," + b + "," + this.settings.alpha + ")";
+    this.draw(x, y);
   };
 
   shapeMode.prototype.draw = function(x, y) {
     for(var i = 0; i < this.settings.numElements; i++) {
-      this.drawShape(x, y, this.settings.elementSize * Math.random());
+      var elementSize = this.settings.elementSize * Math.random();
+      this.shapes[this.settings.drawShape](x, y, elementSize);
+
       x += (Math.random() * 2 - 1) * this.settings.distance;
       y += (Math.random() * 2 - 1) * this.settings.distance;
+
       if (x < 0 - this.settings.elementSize ||
           y < 0 - this.settings.elementSize ||
           x > this.w + this.settings.elementSize ||
           y > this.h + this.settings.elementSize) {
         break;
       }
-    }
-  };
-
-  shapeMode.prototype.drawShape = function(x, y, size) {
-    switch(this.settings.strokeType) {
-    case "circle":
-      this.drawCircle(x, y, size);
-      break;
-    case "square":
-      this.drawSquare(x, y, size);
-      break;
-    case "random":
-      this.drawRandom(x, y, size);
-      break;
-    case "line":
-      this.drawLine(x, y, size);
-      break;
     }
   };
 

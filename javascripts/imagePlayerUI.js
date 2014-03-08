@@ -8,6 +8,7 @@
     this.installObjectListeners(player.modes.shapes);
     this.installSlitListeners(player.modes.slits);
     //better way to do this?
+    //slightly better: create one method that installs all listeners?
   };
 
   PlayerUI.prototype.installListeners = function() {
@@ -56,7 +57,7 @@
     });
 
     $("input:radio[name=stroke-type]").change(function(e) {
-      shapeMode.settings.strokeType = $(e.target).val();
+      shapeMode.settings.shape = $(e.target).val();
     });
   };
 
