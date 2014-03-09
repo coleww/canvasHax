@@ -9,10 +9,11 @@
     this.interval = undefined;
     this.img = undefined;
 
-    this.loopType = "shapes";
+    this.loopType = "walkers";
     this.modes = {
       shapes: new imagePlayer.shapeMode(this.ctx, this.w, this.h),
-      slits: new imagePlayer.slitMode(this.ctx, this.w, this.h)
+      slits: new imagePlayer.slitMode(this.ctx, this.w, this.h),
+      walkers: new imagePlayer.walkerMode(this.ctx, this.w, this.h)
     };
   };
 
@@ -20,6 +21,10 @@
     //maybe construct the UI object here?
     this.loadAndDraw(this.pickRandomImage());
   };
+
+  Player.prototype.pickRandomImage = function() {
+    return "/images/" + (Math.floor(Math.random() * 20) + 1) + ".jpg";
+  };//         /canvasHax
 
   Player.prototype.loadAndDraw = function(imgSource) {
     var that = this;
@@ -29,10 +34,6 @@
     };
     img.src = imgSource;
   };
-
-  Player.prototype.pickRandomImage = function() {
-    return "/canvasHax/images/" + (Math.floor(Math.random() * 20) + 1) + ".jpg";
-  };//
 
   Player.prototype.handleImage = function(e) {
     var that = this;
@@ -45,19 +46,13 @@
 
   Player.prototype.drawNewImage = function(img) {
     this.img = img;
-
     this.ctx.drawImage(img, 0, 0, this.w, this.h);
     this.currImgCtx.drawImage(img, 0, 0, img.width, img.height, 0, 0, 100, 100);
-
-    // var pixelData = this.ctx.getImageData(0, 0, this.w, this.h).data;
-    // var pixelCount = pixelData.length / 4;
-
-    this.startLoop();
-  };
-
-  Player.prototype.startLoop = function() {
-    var that = this;
     var pixelArray = new PixelArray(this.ctx, this.w, this.h);
+
+    //walkers need to know their color
+    this.modes["walkers"].generateWalkers(pixelArray);
+
 //option to clear on restart?
     this.ctx.fillStyle = "rgb(0, 0, 0)";
     this.ctx.fillRect(0,0, this.w, this.h);
@@ -65,6 +60,7 @@
     if(this.interval) {
       clearInterval(this.interval);
     }
+    var that = this;
     this.interval = window.setInterval(function() {
       that.modes[that.loopType].playLoop(pixelArray);
     }, 5);
