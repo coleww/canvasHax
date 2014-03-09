@@ -17,6 +17,7 @@
 
 //WHOA! this should take options hash for each walker?
   walkerMode.prototype.generateWalkers = function(pixelArray){
+    this.walkers = [];
     for(var i = 0; i < this.settings.numWalkers; i ++){
       var pixel = pixelArray.randomPixel();
       var fillColor = pixelArray.getColor(pixel);
