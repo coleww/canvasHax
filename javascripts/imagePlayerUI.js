@@ -14,10 +14,18 @@
   PlayerUI.prototype.installListeners = function() {
     var player = this.player;
     var saver = this.saver;
+    var $slitOpts = $("#slits-opts");
+    var $shapesOpts = $("#shapes-opts");
+    var $walkerOpts = $("#walkers-opts");
+
     $("input:radio[name=loop-type]").change(function(e) {
-      player.loopType = $(e.target).val();
-      $("#slit-opts").toggleClass("hide");
-      $("#draw-opts").toggleClass("hide");
+      var newType = $(e.target).val();
+      player.loopType = newType;
+      $slitOpts.addClass("hide");
+      $shapesOpts.addClass("hide");
+      $walkerOpts.addClass("hide");
+      $("#" + newType + "-opts").removeClass("hide");
+      //would running a case switch be faster than jquerying for the thing?
       player.drawNewImage(player.img);
       //LOD violations up in here :(
     });

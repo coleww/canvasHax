@@ -7,7 +7,7 @@
     this.h = h;
     this.walkers = [];
     this.settings = {
-      numWalkers: 500,
+      numWalkers: 100,
       walkerLength: 25,
       numQuads: 1,
       walkerSize: 25,
@@ -37,7 +37,7 @@
       });
     });
   };
-
+//IT COULD draw the color of the pixel at that walkers point! OPTIONS!!!!!!!!!!!!!!!!!!
   walkerMode.prototype.drawQuad = function(w1, w2){
     this.ctx.fillStyle = w1.fillColor;
     this.ctx.beginPath();

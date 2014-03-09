@@ -9,7 +9,7 @@
     this.interval = undefined;
     this.img = undefined;
 
-    this.loopType = "walkers";
+    this.loopType = "shapes";
     this.modes = {
       shapes: new imagePlayer.shapeMode(this.ctx, this.w, this.h),
       slits: new imagePlayer.slitMode(this.ctx, this.w, this.h),
@@ -23,8 +23,8 @@
   };
 
   Player.prototype.pickRandomImage = function() {
-    return "/images/" + (Math.floor(Math.random() * 20) + 1) + ".jpg";
-  };//         /canvasHax
+    return "/canvasHax/images/" + (Math.floor(Math.random() * 20) + 1) + ".jpg";
+  };//
 
   Player.prototype.loadAndDraw = function(imgSource) {
     var that = this;
