@@ -31,7 +31,7 @@
   };
 
   Player.prototype.pickRandomImage = function() {
-    return "/canvasHax/images/" + (Math.floor(Math.random() * 10) + 1) + ".jpg";
+    return "/canvasHax/images/" + (Math.floor(Math.random() * 20) + 1) + ".jpg";
   };//
 
   Player.prototype.handleImage = function(e) {
