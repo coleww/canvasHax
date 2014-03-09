@@ -44,7 +44,7 @@
     this.ctx.moveTo(w1.xpos, w1.ypos);
     this.ctx.lineTo(w1.x2pos, w1.y2pos);
     this.ctx.lineTo(w2.xpos, w2.ypos);
-    this.ctx.lineTo(w1.xpos, w1.ypos);
+    // this.ctx.lineTo(w1.xpos, w1.ypos);
     this.ctx.fill();
 
     this.ctx.fillStyle = w2.fillColor;
@@ -52,7 +52,7 @@
     this.ctx.moveTo(w2.xpos, w2.ypos);
     this.ctx.lineTo(w2.x2pos, w2.y2pos);
     this.ctx.lineTo(w1.xpos, w1.ypos);
-    this.ctx.lineTo(w2.xpos, w2.ypos);
+    // this.ctx.lineTo(w2.xpos, w2.ypos);
 
 
     this.ctx.fill();
