@@ -19,42 +19,25 @@
   };
 
   slitMode.prototype.draw = function(colors) {
-    //ACK! ONLY WORKS FOR SQUARE CANVII
-    var centerX = this.w / 2;
-    var centerY = this.h / 2;
-    for(var i = 0; i < this.w + this.settings.lineWidth; i += parseInt(this.settings.lineWidth, 10)) {
-      this.ctx.strokeStyle = colors[i];
-      this.ctx.beginPath();
-      if (this.settings.slitType === "horizontal") {
-        this.ctx.moveTo(0, i);
-        this.ctx.lineTo(this.w, i);
-      } else if (this.settings.slitType === "vertical") {
-        this.ctx.moveTo(i, 0);
-        this.ctx.lineTo(i, this.h);
-      } else {
-        this.ctx.moveTo(0, i);
-        this.ctx.lineTo(centerX, centerY);
-
-        this.ctx.strokeStyle = colors[i+this.w];
-        this.ctx.moveTo(i, 0);
-        this.ctx.lineTo(centerX, centerY);
-
-        this.ctx.strokeStyle = colors[i];
-        this.ctx.moveTo(this.w, i);
-        this.ctx.lineTo(centerX, centerY);
-
-        this.ctx.strokeStyle = colors[i+this.w];
-        this.ctx.moveTo(i, 500);
-        this.ctx.lineTo(centerX, centerY);
-      }
-      this.ctx.stroke();
+    switch(this.settings.slitType) {
+      case "horizontal":
+        this.drawHorizontal(colors);
+        break;
+      case "vertical":
+        this.drawVertical(colors);
+        break;
+      case "converge":
+        this.drawConvergence(colors);
+        break;
     }
   };
 
   slitMode.prototype.drawConvergence = function(colors){
-        var centerX = this.w / 2;
+    //SPLIT IT UP INTO DRAW WIDTHS AND DRAW HEIGHTHS
+    var centerX = this.w / 2;
     var centerY = this.h / 2;
-    for(var i = 0; i < this.width + this.settings.lineWidth; i += parseInt(this.settings.lineWidth, 10)) {
+    // + this.settings.lineWidth WHY THIS MAKE IT SO SLOW? doesn't slow down horiz/vert
+    for(var i = 0; i < this.w + 50; i += parseInt(this.settings.lineWidth, 10)) {
 
       this.ctx.beginPath();
 
@@ -82,7 +65,7 @@
 
   slitMode.prototype.drawHorizontal = function(colors){
     var lineSize = parseInt(this.settings.lineWidth, 10);
-    for(var i = 0; i < this.width + this.settings.lineWidth; i += lineSize) {
+    for(var i = 0; i < this.w + this.settings.lineWidth; i += lineSize) {
       this.ctx.strokeStyle = colors[i];
       this.ctx.beginPath();
       this.ctx.moveTo(0, i);
@@ -93,11 +76,11 @@
 
   slitMode.prototype.drawVertical = function(colors){
     var lineSize = parseInt(this.settings.lineWidth, 10);
-    for(var i = 0; i < this.height + this.settings.lineWidth; i += lineSize) {
+    for(var i = 0; i < this.h + this.settings.lineWidth; i += lineSize) {
       this.ctx.strokeStyle = colors[i];
       this.ctx.beginPath();
-      this.ctx.moveTo(0, i);
-      this.ctx.lineTo(this.w, i);
+      this.ctx.moveTo(i, 0);
+      this.ctx.lineTo(i, this.h);
       this.ctx.stroke();
     }
   };
