@@ -1,6 +1,7 @@
 # Abstract Image Player
 
-A Javascript art app.
+A Javascript art app. 
+
 !["art"](./example.gif)
 
 I could try to explain it, but it is maybe easier to just [play with it](http://coleww.github.io/canvasHax/),
