@@ -1,6 +1,7 @@
 (function(root) {
   "use strict";
   var imagePlayer = root.imagePlayer = (root.imagePlayer || {});
+
   var Player = imagePlayer.Player = function(canvas, currImageCanvas) {
     this.canvas = canvas;
     this.ctx = canvas.getContext('2d');
@@ -19,7 +20,7 @@
   };
 
   Player.prototype.play = function() {
-    //maybe construct the UI object here?
+    new imagePlayer.PlayerUI(this, new imagePlayer.Saver(this.canvas));
     this.loadAndDraw(this.pickRandomImage());
   };
 
@@ -51,16 +52,15 @@
     this.currImgCtx.drawImage(img, 0, 0, img.width, img.height, 0, 0, 100, 100);
     var pixelArray = new PixelArray(this.ctx, this.w, this.h);
 
-    //walkers need to know their color
-    this.modes["walkers"].generateWalkers(pixelArray);
-
-//option to clear on restart? GRAB from currImgCtx, 100X100 limit to things?
     this.ctx.fillStyle = "rgb(0, 0, 0)";
     this.ctx.fillRect(0,0, this.w, this.h);
+
+    this.modes["walkers"].generateWalkers(pixelArray);
 
     if(this.interval) {
       clearInterval(this.interval);
     }
+
     var that = this;
     this.interval = window.setInterval(function() {
       that.modes[that.loopType].playLoop(pixelArray);

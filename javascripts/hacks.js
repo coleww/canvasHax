@@ -9,6 +9,6 @@
   } else if(typeof CanvasPixelArray!== 'undefined') {
     CanvasPixelArray.prototype.slice = Array.prototype.slice; //IE10 and IE9
   } else {
-    // Deprecated browser
+    console.log("bad times ahead, yo");
   }
 })();
