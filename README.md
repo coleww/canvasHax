@@ -1,6 +1,6 @@
 # Abstract Image Player
 
-A Javascript art app. 
+A Javascript art app.
 
 !["art"](./example.gif)
 
@@ -11,12 +11,12 @@ ________________________________________________________________________--
 
 
 NEXT:
-UPDATE code to use pixel class instead of hacky array representation.
-THEN:
-walker mode: random walker just walks and has a color, walkermode handles drawing and filling?
+
 
 
 TODO/BUGS/TECHNICAL DEBT:
+* MINIFY AND CONCATENATE YO! LEARN YOSELF A BUILD TOOL, FOOL!
+
 * TOOL TIPS!
 
 * UI listener installation is kind of horrendous?

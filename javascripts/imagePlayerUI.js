@@ -103,9 +103,14 @@
     $("#line-width").change(function(e) {
       slitMode.settings.lineWidth = $(e.target).val();
     });
-
+    var $slitWidth = $("#slit-width");
     $("input:radio[name=line-type]").change(function(e) {
       slitMode.settings.slitType = $(e.target).val();
+      if(slitMode.settings.slitType === "converge"){
+        $slitWidth.addClass("hide");
+      } else {
+        $slitWidth.removeClass("hide");
+      }
     });
   };
 })(this);
