@@ -41,12 +41,10 @@
 
       this.ctx.beginPath();
 
-      //left sidec
       this.ctx.strokeStyle = colors[i];
       this.ctx.moveTo(0, i);
       this.ctx.lineTo(centerX, centerY);
 
-      //
       this.ctx.strokeStyle = colors[i+this.w];
       this.ctx.moveTo(i, 0);
       this.ctx.lineTo(centerX, centerY);

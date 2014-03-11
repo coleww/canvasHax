@@ -8,9 +8,8 @@
     this.walkers = [];
     this.settings = {
       numWalkers: 100,
-      walkerLength: 25,
-      numQuads: 1,
       walkerSize: 25,
+      numQuads: 1,
       alpha: 1
     };
   };
@@ -21,7 +20,7 @@
     for(var i = 0; i < this.settings.numWalkers; i ++){
       var pixel = pixelArray.randomPixel();
       var fillColor = pixelArray.getColor(pixel);
-      this.walkers.push(new randomWalker(fillColor, this.settings.walkerLength, this.w, this.h));
+      this.walkers.push(new randomWalker(fillColor, this.settings.walkerSize, this.w, this.h));
     }
   };//HOLY HELL COULD DRAW "PIXELS" IMAGE THEN THE IMAGE STARTS MOVING AROUND WOWEE!
 
@@ -117,13 +116,17 @@
     }
   };
 
+//DRAWS a circle at its x2, y2, and erases from x,y to x2, y2
   randomWalker.prototype.mark = function(ctx){
-    ctx.fillStyle = "rgb(0, 255, 0)";
+    ctx.fillStyle = this.fillColor;
     ctx.beginPath();
-    ctx.arc(this.xpos, this.ypos, 5, 0, 2 * Math.PI, false);
+    ctx.arc(this.x2pos, this.y2pos, this.elSize, 0, 2 * Math.PI, false);
     ctx.fill();
-    //DRAW TO CTX. MAYBE ERASE TOO. WHATEVER.
-    //maybe the walker walks and another thing takes its values to draw? ehhhh
+    ctx.strokeStyle = "rgba(255, 255, 255, 25)";
+    //CHANGE STROKE WIDTH WEIGHT THING?
+    ctx.moveTo(this.xpos, this.ypos);
+    ctx.lineTo(this.x2pos, this.y2pos);
+    ctx.fill();
   };
 
   randomWalker.prototype.intersectsWith = function(otherWalker){

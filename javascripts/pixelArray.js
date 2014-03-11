@@ -1,6 +1,26 @@
 (function(root){
-  //takes in a context, width, and height.
-  //a "pixel" is a 4 element array. 0 => R, 1 => G, 2 => B, 3 => A
+
+  //could get passed ref to original pixelArray so that it knows it's neighbors?
+  var Pixel = root.Pixel = function(rgba, xpos, ypos){
+    this.rgba = rgba;
+    this.xpos = xpos;
+    this.ypos = ypos;
+  };
+
+  Pixel.prototype.getColor = function(alphaVal){
+    var red = this.rgba[0];
+    var green = this.rgba[1];
+    var blue = this.rgba[2];
+    var alpha = this.rgba[3];
+    if(alpha !== undefined){
+      alpha = alphaVal;
+    }
+
+    return "rgba(" + r + "," + g + "," + b + "," + a + ")";
+  };
+
+//?????????????????????????????///
+
   var PixelArray = root.PixelArray = function(ctx, w, h){
     this._pixels = ctx.getImageData(0, 0, w, h).data;
     this.w = w;

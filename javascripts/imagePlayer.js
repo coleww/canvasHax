@@ -23,8 +23,8 @@
   };
 
   Player.prototype.pickRandomImage = function() {
-    return "/canvasHax/images/" + (Math.floor(Math.random() * 20) + 1) + ".jpg";
-  };//
+    return "/images/" + (Math.floor(Math.random() * 20) + 1) + ".jpg";
+  };//  /canvasHax
 
   Player.prototype.loadAndDraw = function(imgSource) {
     var that = this;
@@ -53,7 +53,7 @@
     //walkers need to know their color
     this.modes["walkers"].generateWalkers(pixelArray);
 
-//option to clear on restart?
+//option to clear on restart? GRAB from currImgCtx, 100X100 limit to things?
     this.ctx.fillStyle = "rgb(0, 0, 0)";
     this.ctx.fillRect(0,0, this.w, this.h);
 

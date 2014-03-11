@@ -11,6 +11,29 @@
     //slightly better: create one method that installs all listeners?
   };
 
+  PlayerUI.prototype.installWalkerListeners = function(walkerMode) {
+    $("#walker-size").change(function(e) {
+      walkerMode.settings.walkerSize = $(e.target).val();
+    });
+
+    $("#num-walkers").change(function(e) {
+      walkerMode.settings.numWalkers = $(e.target).val();
+    });
+
+    $("#walker-alpha").change(function(e) {
+      walkerMode.settings.alpha = $(e.target).val();
+    });
+
+    $("#num-quads").change(function(e) {
+      walkerMode.settings.numQuads = $(e.target).val();
+    });
+
+//IT COULD have option to draw based on walker color value vs. original x/y. center pixel of the quad?
+    // $("input:radio[name=.........]").change(function(e) {
+    //   walkerMode.settings............. = $(e.target).val();
+    // });
+  };
+
   PlayerUI.prototype.installListeners = function() {
     var player = this.player;
     var saver = this.saver;
