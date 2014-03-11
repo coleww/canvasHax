@@ -12,3 +12,5 @@ ________________________________________________________________________--
 TODO:
 * MINIFY AND CONCATENATE YO! LEARN YOSELF A BUILD TOOL, FOOL!
 * UI listener installation is kind of horrendous?
+
+* slitmode:converge=>break down into 2 for loops
