@@ -25,8 +25,8 @@
   };
 
   Player.prototype.pickRandomImage = function() {
-    return "/images/" + (Math.floor(Math.random() * 20) + 1) + ".jpg";
-  };//  /canvasHax
+    return "/canvasHax/images/" + (Math.floor(Math.random() * 20) + 1) + ".jpg";
+  };//
 
   Player.prototype.loadAndDraw = function(imgSource) {
     var that = this;
