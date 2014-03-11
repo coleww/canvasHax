@@ -27,9 +27,7 @@
       $shapesOpts.addClass("hide");
       $walkerOpts.addClass("hide");
       $("#" + newType + "-opts").removeClass("hide");
-      //would running a case switch be faster than jquerying for the thing?
-      player.drawNewImage(player.img);
-      //LOD violations up in here :(
+      player.drawImage();
     });
 
     $("#save").click(function(e) {

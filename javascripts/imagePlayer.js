@@ -32,7 +32,7 @@
     var that = this;
     var img = new Image();
     img.onload = function() {
-      that.drawNewImage(img);
+      that.drawImage(img);
     };
     img.src = imgSource;
   };
@@ -46,10 +46,12 @@
     reader.readAsDataURL(e.target.files[0]);
   };
 
-  Player.prototype.drawNewImage = function(img) {
-    this.img = img;
-    this.ctx.drawImage(img, 0, 0, this.w, this.h);
-    this.currImgCtx.drawImage(img, 0, 0, img.width, img.height, 0, 0, 100, 100);
+  Player.prototype.drawImage = function(img) {
+    if(img !== undefined){
+      this.img = img;
+    }
+    this.ctx.drawImage(this.img, 0, 0, this.w, this.h);
+    this.currImgCtx.drawImage(this.img, 0, 0, this.img.width, this.img.height, 0, 0, 100, 100);
     var pixelArray = new PixelArray(this.ctx, this.w, this.h);
 
     this.ctx.fillStyle = "rgb(0, 0, 0)";
