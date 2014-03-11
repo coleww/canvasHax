@@ -13,47 +13,48 @@
   };
 
   slitMode.prototype.playLoop = function(pixelArray) {
-      var colors = this.getColors(pixelArray);
-      this.ctx.lineWidth = this.settings.lineWidth;
-      this.draw(colors);
+    var pixels = this.getPixels(pixelArray);
+    this.ctx.lineWidth = this.settings.lineWidth;
+    this.draw(pixels);
   };
 
-  slitMode.prototype.draw = function(colors) {
+  slitMode.prototype.draw = function(pixels) {
     switch(this.settings.slitType) {
       case "horizontal":
-        this.drawHorizontal(colors);
+        this.drawHorizontal(pixels);
         break;
       case "vertical":
-        this.drawVertical(colors);
+        this.drawVertical(pixels);
         break;
       case "converge":
-        this.drawConvergence(colors);
+        this.drawConvergence(pixels);
         break;
     }
   };
 
-  slitMode.prototype.drawConvergence = function(colors){
+  slitMode.prototype.drawConvergence = function(pixels){
     //SPLIT IT UP INTO DRAW WIDTHS AND DRAW HEIGHTHS
+    //DEPENDS ON SQUARE CANVAS UGH.
+    //DISABLE LINE WIDTH ON THIS BAD BOY AND INSTEAD...?
     var centerX = this.w / 2;
     var centerY = this.h / 2;
-    // + this.settings.lineWidth WHY THIS MAKE IT SO SLOW? doesn't slow down horiz/vert
-    for(var i = 0; i < this.w + 50; i += parseInt(this.settings.lineWidth, 10)) {
+    for(var i = 0; i < this.w; i += parseInt(this.settings.lineWidth, 10)) {
 
       this.ctx.beginPath();
 
-      this.ctx.strokeStyle = colors[i];
+      this.ctx.strokeStyle = pixels[i].getColor(this.settings.alpha);
+
       this.ctx.moveTo(0, i);
       this.ctx.lineTo(centerX, centerY);
 
-      this.ctx.strokeStyle = colors[i+this.w];
-      this.ctx.moveTo(i, 0);
-      this.ctx.lineTo(centerX, centerY);
-
-      this.ctx.strokeStyle = colors[i];
       this.ctx.moveTo(this.w, i);
       this.ctx.lineTo(centerX, centerY);
 
-      this.ctx.strokeStyle = colors[i+this.w];
+      this.ctx.strokeStyle = pixels[i+this.w].getColor(this.settings.alpha);
+
+      this.ctx.moveTo(i, 0);
+      this.ctx.lineTo(centerX, centerY);
+
       this.ctx.moveTo(i, this.h);
       this.ctx.lineTo(centerX, centerY);
 
@@ -61,38 +62,45 @@
     }
   };
 
-  slitMode.prototype.drawHorizontal = function(colors){
+
+
+
+
+  slitMode.prototype.drawHorizontal = function(pixels){
     var lineSize = parseInt(this.settings.lineWidth, 10);
-    for(var i = 0; i < this.w + this.settings.lineWidth; i += lineSize) {
-      this.ctx.strokeStyle = colors[i];
-      this.ctx.beginPath();
-      this.ctx.moveTo(0, i);
-      this.ctx.lineTo(this.w, i);
-      this.ctx.stroke();
+    for(var i = 0; i < this.w; i += lineSize) {
+      this.ctx.fillStyle = pixels[i].getColor(this.settings.alpha);
+      this.ctx.fillRect(0, i, this.w, this.settings.lineWidth);
+      // this.ctx.beginPath();
+      // this.ctx.moveTo(0, i);
+      // this.ctx.lineTo(this.w, i);
+      // this.ctx.stroke();
+    }
+  };
+//THESE TWO SHOULD ACTUALLY DRAW RECTANGLES.
+  slitMode.prototype.drawVertical = function(pixels){
+    var lineSize = parseInt(this.settings.lineWidth, 10);
+    for(var i = 0; i < this.h; i += lineSize) {
+      this.ctx.fillStyle = pixels[i].getColor(this.settings.alpha);
+      this.ctx.fillRect(i, 0, this.settings.lineWidth, this.w);
+
+      // this.ctx.beginPath();
+      // this.ctx.moveTo(i, 0);
+      // this.ctx.lineTo(i, this.h);
+      // this.ctx.stroke();
     }
   };
 
-  slitMode.prototype.drawVertical = function(colors){
-    var lineSize = parseInt(this.settings.lineWidth, 10);
-    for(var i = 0; i < this.h + this.settings.lineWidth; i += lineSize) {
-      this.ctx.strokeStyle = colors[i];
-      this.ctx.beginPath();
-      this.ctx.moveTo(i, 0);
-      this.ctx.lineTo(i, this.h);
-      this.ctx.stroke();
-    }
-  };
-
-  slitMode.prototype.getColors = function(pixelArray) {
+  slitMode.prototype.getPixels = function(pixelArray) {
     var coords = pixelArray.randomCoords();
     if (this.settings.slitType === "horizontal") {
-      return pixelArray.getCol(coords[0], this.settings.alpha);
+      return pixelArray.getCol(coords[0]);
     } else if (this.settings.slitType === "vertical") {
-      return pixelArray.getRow(coords[1], this.settings.alpha);
+      return pixelArray.getRow(coords[1]);
     } else {
-      var rowColors = pixelArray.getRow(coords[0], this.settings.alpha);
-      var colColors = pixelArray.getCol(coords[1], this.settings.alpha);
-      return rowColors.concat(colColors);
+      var rowpixels = pixelArray.getRow(coords[0]);
+      var colpixels = pixelArray.getCol(coords[1]);
+      return rowpixels.concat(colpixels);
     }
   };
 })(this);
