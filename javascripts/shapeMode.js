@@ -14,7 +14,7 @@
       distance: 5,
       numElements: 5
     };
-
+//why did I have to bind?
     this.shapes = {
       "circle": this.drawCircle.bind(this.ctx),
       "square": this.drawSquare.bind(this.ctx),
@@ -90,7 +90,8 @@
   };
 
   shapeMode.prototype.drawLine = function(x, y, size) {
-    var lengths = [Math.random() * size, Math.random() * size * -1, 0];
+    this.lineWidth = 1 + size / 10;
+    var lengths = [Math.random() * size * 5, Math.random() * size * -5, 0];
     this.beginPath();
     this.moveTo(x, y);
     this.lineTo(x + lengths.sample(), y + lengths.sample());
