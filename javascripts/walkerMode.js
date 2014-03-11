@@ -28,11 +28,8 @@
     var that = this;
     this.walkers.forEach(function(walker, index, walkers){
       walker.move(that.settings.walkerSize);
-      // walker.mark(that.ctx);
       walkers.forEach(function(walker2, index2){
         if(walker.intersectsWith(walker2) && index !== index2) {
-          // walker.setRandomDirection();
-          // walker2.setRandomDirection();
           that.drawQuad(walker, walker2);
         }
       });
@@ -47,7 +44,6 @@
       this.ctx.moveTo(w1.xpos, w1.ypos);
       this.ctx.lineTo(w1.x2pos, w1.y2pos);
       this.ctx.lineTo(w2.xpos, w2.ypos);
-      // this.ctx.lineTo(w2.x2pos, w2.y2pos);
       this.ctx.fill();
     }
     if(this.settings.numQuads > 1){
@@ -56,7 +52,6 @@
       this.ctx.moveTo(w2.xpos, w2.ypos);
       this.ctx.lineTo(w2.x2pos, w2.y2pos);
       this.ctx.lineTo(w1.xpos, w1.ypos);
-      // this.ctx.lineTo(w1.x2pos, w1.y2pos);
       this.ctx.fill();
     }
   };

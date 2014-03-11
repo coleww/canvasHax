@@ -1,13 +1,7 @@
 (function(root){
   "use strict";
-
-  ///////////////////////////////////////////////////////////////////////////////////////////
-//about time to make my own JS library of canvas hax.
-//about time to learn radians/degrees too.
-//about time for a lotta things.
-//about time to see if there is javascript perlin noise
-//duh there has to be there is JSeverything.
-//OPTIONS HASH YO!
+// take pixel, w, h, and options.
+// one of options is like "origin" which if true means this.xpos = this.pixel.xpos or something
   var RandomWalker = root.RandomWalker = function(pixel, w, h, x, y){
     this.pixel = pixel;
     this.dirs = [-1, 0, 1];
@@ -49,7 +43,6 @@
     if (this.ypos < 0 || this.ypos > this.h){
       this.ydir *= -1;
     }
-    //IF X OR Y IS OUTTA BOUNDS, BOUNCE BACK OR REAPPEAR
   };
 
   RandomWalker.prototype.setRandomDirection = function(){
@@ -58,19 +51,6 @@
     if(this.xdir === 0 && this.ydir === 0){
       this.setRandomDirection();
     }
-  };
-
-//DRAWS a circle at its x2, y2, and erases from x,y to x2, y2
-  RandomWalker.prototype.mark = function(ctx){
-    ctx.fillStyle = this.pixel.getColor();
-    ctx.beginPath();
-    ctx.arc(this.x2pos, this.y2pos, 5, 0, 2 * Math.PI, false);
-    ctx.fill();
-    ctx.strokeStyle = "rgba(255, 255, 255, 25)";
-    //CHANGE STROKE WIDTH WEIGHT THING?
-    ctx.moveTo(this.xpos, this.ypos);
-    ctx.lineTo(this.x2pos, this.y2pos);
-    ctx.fill();
   };
 
   RandomWalker.prototype.intersectsWith = function(otherWalker){
