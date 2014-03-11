@@ -34,9 +34,8 @@
   };
 
   slitMode.prototype.drawConvergence = function(pixels){
-    //SPLIT IT UP INTO DRAW WIDTHS AND DRAW HEIGHTHS
-    //DEPENDS ON SQUARE CANVAS UGH.
-    //DISABLE LINE WIDTH ON THIS BAD BOY AND INSTEAD...?
+    //x and y can each be 1 for loop i think?
+    //whatevers
     var centerX = this.w / 2;
     var centerY = this.h / 2;
     this.ctx.lineWidth = 1;
@@ -67,7 +66,7 @@
     for(var y2 = this.w + this.h - 1; y2 > this.w; y2--){
       this.ctx.beginPath();
       this.ctx.strokeStyle = pixels[y2].getColor(this.settings.alpha);
-      this.ctx.moveTo(this.w, y2 - this.w);
+      this.ctx.moveTo(this.w, this.h + this.w - y2);
       this.ctx.lineTo(centerX, centerY);
       this.ctx.stroke();
       console.log(this.h - y2 - this.w);
