@@ -10,7 +10,6 @@
     this.settings = {
       numWalkers: 100,
       walkerSize: 25,
-      numQuads: 2,
       alpha: 1
     };
   };
@@ -39,20 +38,11 @@
   walkerMode.prototype.drawQuad = function(w1, w2){
     this.ctx.fillStyle = w1.pixel.getColor(this.settings.alpha);
 
-    if(this.settings.numQuads > 0){
-      this.ctx.beginPath();
-      this.ctx.moveTo(w1.xpos, w1.ypos);
-      this.ctx.lineTo(w1.x2pos, w1.y2pos);
-      this.ctx.lineTo(w2.xpos, w2.ypos);
-      this.ctx.fill();
-    }
-    if(this.settings.numQuads > 1){
-      this.ctx.fillStyle = w2.pixel.getColor(this.settings.alpha);
-      this.ctx.beginPath();
-      this.ctx.moveTo(w2.xpos, w2.ypos);
-      this.ctx.lineTo(w2.x2pos, w2.y2pos);
-      this.ctx.lineTo(w1.xpos, w1.ypos);
-      this.ctx.fill();
-    }
+    this.ctx.beginPath();
+    this.ctx.moveTo(w1.xpos, w1.ypos);
+    this.ctx.lineTo(w1.x2pos, w1.y2pos);
+    this.ctx.lineTo(w2.xpos, w2.ypos);
+    this.ctx.lineTo(w2.x2pos, w2.y2pos);
+    this.ctx.fill();
   };
 })(this);

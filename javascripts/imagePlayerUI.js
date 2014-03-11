@@ -94,19 +94,5 @@
     $("#walker-alpha").change(function(e) {
       walkerMode.settings.alpha = $(e.target).val();
     });
-
-    // $("#num-walkers").change(function(e) {
-    //   walkerMode.settings.numWalkers = $(e.target).val();
-    // something here like addWalker() etc.
-    // });
-
-    // $("#num-quads").change(function(e) {
-    //   walkerMode.settings.numQuads = $(e.target).val();
-    // });
-
-//IT COULD have option to draw based on walker color value vs. original x/y. center pixel of the quad?
-    // $("input:radio[name=.........]").change(function(e) {
-    //   walkerMode.settings............. = $(e.target).val();
-    // });
   };
 })(this);
