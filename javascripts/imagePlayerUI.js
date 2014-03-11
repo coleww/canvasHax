@@ -6,35 +6,11 @@
     this.player = player;
     this.saver = saver;
     this.installListeners();
-    this.installObjectListeners(player.modes.shapes);
+    this.installShapeListeners(player.modes.shapes);
     this.installSlitListeners(player.modes.slits);
     this.installWalkerListeners(player.modes.walkers);
-    //better way to do this?
+    //better way to do this? REACHES way to far into the player...
     //slightly better: create one method that installs all listeners?
-  };
-
-  PlayerUI.prototype.installWalkerListeners = function(walkerMode) {
-    $("#walker-size").change(function(e) {
-      walkerMode.settings.walkerSize = $(e.target).val();
-    });
-
-    // $("#num-walkers").change(function(e) {
-    //   walkerMode.settings.numWalkers = $(e.target).val();
-    // something here like addWalker() etc.
-    // });
-
-    $("#walker-alpha").change(function(e) {
-      walkerMode.settings.alpha = $(e.target).val();
-    });
-
-    // $("#num-quads").change(function(e) {
-    //   walkerMode.settings.numQuads = $(e.target).val();
-    // });
-
-//IT COULD have option to draw based on walker color value vs. original x/y. center pixel of the quad?
-    // $("input:radio[name=.........]").change(function(e) {
-    //   walkerMode.settings............. = $(e.target).val();
-    // });
   };
 
   PlayerUI.prototype.installListeners = function() {
@@ -69,7 +45,7 @@
     });
   };
 
-  PlayerUI.prototype.installObjectListeners = function(shapeMode) {
+  PlayerUI.prototype.installShapeListeners = function(shapeMode) {
     $("#alpha").change(function(e) {
       shapeMode.settings.alpha = $(e.target).val();
     });
@@ -112,5 +88,29 @@
         $slitWidth.removeClass("hide");
       }
     });
+  };
+
+  PlayerUI.prototype.installWalkerListeners = function(walkerMode) {
+    $("#walker-size").change(function(e) {
+      walkerMode.settings.walkerSize = $(e.target).val();
+    });
+
+    $("#walker-alpha").change(function(e) {
+      walkerMode.settings.alpha = $(e.target).val();
+    });
+
+    // $("#num-walkers").change(function(e) {
+    //   walkerMode.settings.numWalkers = $(e.target).val();
+    // something here like addWalker() etc.
+    // });
+
+    // $("#num-quads").change(function(e) {
+    //   walkerMode.settings.numQuads = $(e.target).val();
+    // });
+
+//IT COULD have option to draw based on walker color value vs. original x/y. center pixel of the quad?
+    // $("input:radio[name=.........]").change(function(e) {
+    //   walkerMode.settings............. = $(e.target).val();
+    // });
   };
 })(this);
