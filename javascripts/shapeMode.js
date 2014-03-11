@@ -27,17 +27,17 @@
     var x = coords[0];
     var y = coords[1];
     var pixel = pixelArray.getPixel(x, y);
-    var color = pixelArray.getColor(pixel, this.settings.alpha);
+    var color = pixel.getColor(this.settings.alpha);
     this.ctx.fillStyle = color;
     this.ctx.strokeStyle = color;
     switch(this.settings.elementStart) {
       case "center":
-        coords = pixelArray.centerCoords();
+        coords = pixelArray.centerCoords();//IS THIS RLLY THE RESPONSIBILITY OF THE PIXEL ARRAY?
         x = coords[0];
         y = coords[1];
         break;
       case "random":
-        coords = pixelArray.randomCoords();
+        coords = pixelArray.randomCoords(); //IT IS PROBABLY NOT IT'S RESPONSIBILITY, NO.THANK YOU.
         x = coords[0];
         y = coords[1];
         break;
