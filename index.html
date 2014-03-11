@@ -32,31 +32,29 @@
       <br />
       <div class="buttons">
         Loop Type<br/>
-        <input type="radio" name="loop-type" value="shapes" checked="true">Shapes
+        <input type="radio" name="loop-type" value="shapes">Shapes
         <br />
         <input type="radio" name="loop-type" value="slits">Slits
         <br/>
-        <input type="radio" name="loop-type" value="walkers">Walkers
+        <input type="radio" name="loop-type" value="walkers" checked="true">Walkers
         <br/>
       </div>
 
-      <div id="walkers-opts" class="hide">
-        ITS A WORK IN PROGRESS<br />
-        ITS A PROCESS
-<!--         <div class="sliders">
-          <span class="slider-opt">Number</span>
-          <input type="range" id="num-walkers" min="2" max="500" step="10" value="100">
-          <br />
+      <div id="walkers-opts">
+        <div class="sliders">
           <span class="slider-opt">Opacity</span>
-          <input type="range" id="walker-alpha"  min="1" max="50" step="1" value="1">
+          <input type="range" id="walker-alpha" min="0.05" max="1" step=".05" value="1">
           <br />
           <span class="slider-opt">Size</span>
-          <input type="range" id="walker-size" min="5" max="250" step="5" value="25">
+          <input type="range" id="walker-size" min="25" max="250" step="5" value="25">
           <br />
-          <span class="slider-opt">Quads</span>
+<!--           <span class="slider-opt">Number</span>
+          <input type="range" id="num-walkers" min="2" max="500" step="10" value="100">
+          <br /> -->
+<!--           <span class="slider-opt">Quads</span>
           <input type="range" id="num-quads"  min="1" max="4" step="1" value="1">
-          <br />
-        </div> -->
+          <br /> -->
+        </div>
 
       </div>
 
@@ -82,7 +80,7 @@
       </div>
 
 
-      <div id="shapes-opts">
+      <div id="shapes-opts" class="hide">
         <div class="buttons">
           Origin<br />
           <input type="radio" name="start-position" value="origin" checked="true">Original

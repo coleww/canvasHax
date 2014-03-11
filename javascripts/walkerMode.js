@@ -10,7 +10,7 @@
     this.settings = {
       numWalkers: 100,
       walkerSize: 25,
-      numQuads: 1,
+      numQuads: 2,
       alpha: 1
     };
   };
@@ -22,14 +22,13 @@
       var pixel = pixelArray.randomPixel();
       this.walkers.push(new RandomWalker(pixel, this.w, this.h));
     }
-  };//HOLY HELL COULD DRAW "PIXELS" IMAGE THEN THE IMAGE STARTS MOVING AROUND WOWEE!
+  };
 
   walkerMode.prototype.playLoop = function(){
     var that = this;
     this.walkers.forEach(function(walker, index, walkers){
-      walker.move();
-      walker.mark(that.ctx);
-      console.log(walker.pixel.getColor());
+      walker.move(that.settings.walkerSize);
+      // walker.mark(that.ctx);
       walkers.forEach(function(walker2, index2){
         if(walker.intersectsWith(walker2) && index !== index2) {
           // walker.setRandomDirection();
@@ -42,23 +41,24 @@
 //IT COULD draw the color of the pixel at that walkers point! OPTIONS!!!!!!!!!!!!!!!!!!
   walkerMode.prototype.drawQuad = function(w1, w2){
     this.ctx.fillStyle = w1.pixel.getColor(this.settings.alpha);
-    this.ctx.beginPath();
-    this.ctx.moveTo(w1.xpos, w1.ypos);
-    this.ctx.lineTo(w1.x2pos, w1.y2pos);
-    this.ctx.lineTo(w2.xpos, w2.ypos);
-    this.ctx.lineTo(w1.xpos, w1.ypos);
-    this.ctx.fill();
 
-    this.ctx.fillStyle = w2.pixel.getColor(this.settings.alpha);
-    this.ctx.beginPath();
-    this.ctx.moveTo(w2.xpos, w2.ypos);
-    this.ctx.lineTo(w2.x2pos, w2.y2pos);
-    this.ctx.lineTo(w1.xpos, w1.ypos);
-    this.ctx.lineTo(w2.xpos, w2.ypos);
-
-
-    this.ctx.fill();
-
+    if(this.settings.numQuads > 0){
+      this.ctx.beginPath();
+      this.ctx.moveTo(w1.xpos, w1.ypos);
+      this.ctx.lineTo(w1.x2pos, w1.y2pos);
+      this.ctx.lineTo(w2.xpos, w2.ypos);
+      // this.ctx.lineTo(w2.x2pos, w2.y2pos);
+      this.ctx.fill();
+    }
+    if(this.settings.numQuads > 1){
+      this.ctx.fillStyle = w2.pixel.getColor(this.settings.alpha);
+      this.ctx.beginPath();
+      this.ctx.moveTo(w2.xpos, w2.ypos);
+      this.ctx.lineTo(w2.x2pos, w2.y2pos);
+      this.ctx.lineTo(w1.xpos, w1.ypos);
+      // this.ctx.lineTo(w1.x2pos, w1.y2pos);
+      this.ctx.fill();
+    }
   };
 
 
@@ -74,6 +74,10 @@
     this.dirs = [-1, 0, 1];
     this.w = w;
     this.h = h;
+    this.xdir = null;
+    this.ydir = null;
+    this.x2pos = null;
+    this.y2pos = null;
     if (x === undefined || y === undefined){
       this.xpos = Math.floor(Math.random() * w);
       this.ypos = Math.floor(Math.random() * h);
@@ -83,10 +87,10 @@
     }
 
     this.setRandomDirection();
-    this.move();//so x2y2 get set. it's lame, i know.
+    this.move(5);//so x2y2 get set. it's lame, i know. move 5 so it sets. ugh. refactor this.
   };
 
-  RandomWalker.prototype.move = function(){
+  RandomWalker.prototype.move = function(distance){
 
 //random random
     // this.xpos += this.dirs.sample();
@@ -95,8 +99,8 @@
 //liney random
     this.xpos += this.xdir;
     this.ypos += this.ydir;
-    this.x2pos = this.xpos + this.xdir * this.elSize;
-    this.y2pos = this.ypos + this.ydir * this.elSize;
+    this.x2pos = this.xpos + this.xdir * distance;
+    this.y2pos = this.ypos + this.ydir * distance;
 
 
     if (this.xpos < 0 || this.xpos > this.w){
@@ -121,7 +125,7 @@
   RandomWalker.prototype.mark = function(ctx){
     ctx.fillStyle = this.pixel.getColor();
     ctx.beginPath();
-    ctx.arc(this.x2pos, this.y2pos, 25, 0, 2 * Math.PI, false);
+    ctx.arc(this.x2pos, this.y2pos, 5, 0, 2 * Math.PI, false);
     ctx.fill();
     ctx.strokeStyle = "rgba(255, 255, 255, 25)";
     //CHANGE STROKE WIDTH WEIGHT THING?
