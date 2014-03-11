@@ -3,19 +3,17 @@
   var imagePlayer = root.imagePlayer = (root.imagePlayer || {});
 
   var PlayerUI = imagePlayer.PlayerUI = function(player, saver){
-    this.player = player;
-    this.saver = saver;
-    this.installListeners();
+    this.installListeners(player, saver);
+  };
+
+  PlayerUI.prototype.installListeners = function(player, saver) {
+    this.installPlayerListeners(player, saver);
     this.installShapeListeners(player.modes.shapes);
     this.installSlitListeners(player.modes.slits);
     this.installWalkerListeners(player.modes.walkers);
-    //better way to do this? REACHES way to far into the player...
-    //slightly better: create one method that installs all listeners?
   };
 
-  PlayerUI.prototype.installListeners = function() {
-    var player = this.player;
-    var saver = this.saver;
+  PlayerUI.prototype.installPlayerListeners = function(player, saver) {
     var $slitOpts = $("#slits-opts");
     var $shapesOpts = $("#shapes-opts");
     var $walkerOpts = $("#walkers-opts");
@@ -80,7 +78,7 @@
     var $slitWidth = $("#slit-width");
     $("input:radio[name=line-type]").change(function(e) {
       slitMode.settings.slitType = $(e.target).val();
-      if(slitMode.settings.slitType === "converge"){
+      if (slitMode.settings.slitType === "converge") {
         $slitWidth.addClass("hide");
       } else {
         $slitWidth.removeClass("hide");
