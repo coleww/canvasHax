@@ -1,4 +1,5 @@
 (function(root) {
+  "use strict";
   var imagePlayer = root.imagePlayer = (root.imagePlayer || {});
   var Player = imagePlayer.Player = function(canvas, currImageCanvas) {
     this.canvas = canvas;
@@ -9,7 +10,7 @@
     this.interval = undefined;
     this.img = undefined;
 
-    this.loopType = "shapes";
+    this.loopType = "walkers";//shapes";
     this.modes = {
       shapes: new imagePlayer.shapeMode(this.ctx, this.w, this.h),
       slits: new imagePlayer.slitMode(this.ctx, this.w, this.h),

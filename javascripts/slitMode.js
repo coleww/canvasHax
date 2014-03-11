@@ -1,4 +1,5 @@
 (function(root){
+  "use strict";
   var imagePlayer = root.imagePlayer = (root.imagePlayer || {});
 
   var slitMode = imagePlayer.slitMode = function(ctx, w, h){

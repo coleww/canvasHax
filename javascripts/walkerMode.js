@@ -1,4 +1,5 @@
 (function(root){
+  "use strict";
   var imagePlayer = root.imagePlayer = (root.imagePlayer || {});
 
   var walkerMode = imagePlayer.walkerMode = function(ctx, w, h){
@@ -16,11 +17,10 @@
 
 //WHOA! this should take options hash for each walker?
   walkerMode.prototype.generateWalkers = function(pixelArray){
-    this.walkers = [];
+    this.walkers.length = 0;
     for(var i = 0; i < this.settings.numWalkers; i ++){
       var pixel = pixelArray.randomPixel();
-      var fillColor = pixelArray.getColor(pixel);
-      this.walkers.push(new randomWalker(fillColor, this.settings.walkerSize, this.w, this.h));
+      this.walkers.push(new RandomWalker(pixel, this.w, this.h));
     }
   };//HOLY HELL COULD DRAW "PIXELS" IMAGE THEN THE IMAGE STARTS MOVING AROUND WOWEE!
 
@@ -28,6 +28,8 @@
     var that = this;
     this.walkers.forEach(function(walker, index, walkers){
       walker.move();
+      walker.mark(that.ctx);
+      console.log(walker.pixel.getColor());
       walkers.forEach(function(walker2, index2){
         if(walker.intersectsWith(walker2) && index !== index2) {
           // walker.setRandomDirection();
@@ -39,20 +41,20 @@
   };
 //IT COULD draw the color of the pixel at that walkers point! OPTIONS!!!!!!!!!!!!!!!!!!
   walkerMode.prototype.drawQuad = function(w1, w2){
-    this.ctx.fillStyle = w1.fillColor;
+    this.ctx.fillStyle = w1.pixel.getColor(this.settings.alpha);
     this.ctx.beginPath();
     this.ctx.moveTo(w1.xpos, w1.ypos);
     this.ctx.lineTo(w1.x2pos, w1.y2pos);
     this.ctx.lineTo(w2.xpos, w2.ypos);
-    // this.ctx.lineTo(w1.xpos, w1.ypos);
+    this.ctx.lineTo(w1.xpos, w1.ypos);
     this.ctx.fill();
 
-    this.ctx.fillStyle = w2.fillColor;
+    this.ctx.fillStyle = w2.pixel.getColor(this.settings.alpha);
     this.ctx.beginPath();
     this.ctx.moveTo(w2.xpos, w2.ypos);
     this.ctx.lineTo(w2.x2pos, w2.y2pos);
     this.ctx.lineTo(w1.xpos, w1.ypos);
-    // this.ctx.lineTo(w2.xpos, w2.ypos);
+    this.ctx.lineTo(w2.xpos, w2.ypos);
 
 
     this.ctx.fill();
@@ -67,9 +69,8 @@
 //about time to see if there is javascript perlin noise
 //duh there has to be there is JSeverything.
 //OPTIONS HASH YO!
-  var randomWalker = root.randomWalker = function(fillColor, elSize, w, h, x, y){
-    this.fillColor = fillColor;
-    this.elSize = elSize;
+  var RandomWalker = root.RandomWalker = function(pixel, w, h, x, y){
+    this.pixel = pixel;
     this.dirs = [-1, 0, 1];
     this.w = w;
     this.h = h;
@@ -85,7 +86,7 @@
     this.move();//so x2y2 get set. it's lame, i know.
   };
 
-  randomWalker.prototype.move = function(){
+  RandomWalker.prototype.move = function(){
 
 //random random
     // this.xpos += this.dirs.sample();
@@ -108,7 +109,7 @@
     //IF X OR Y IS OUTTA BOUNDS, BOUNCE BACK OR REAPPEAR
   };
 
-  randomWalker.prototype.setRandomDirection = function(){
+  RandomWalker.prototype.setRandomDirection = function(){
     this.xdir = this.dirs.sample();
     this.ydir = this.dirs.sample();
     if(this.xdir === 0 && this.ydir === 0){
@@ -117,10 +118,10 @@
   };
 
 //DRAWS a circle at its x2, y2, and erases from x,y to x2, y2
-  randomWalker.prototype.mark = function(ctx){
-    ctx.fillStyle = this.fillColor;
+  RandomWalker.prototype.mark = function(ctx){
+    ctx.fillStyle = this.pixel.getColor();
     ctx.beginPath();
-    ctx.arc(this.x2pos, this.y2pos, this.elSize, 0, 2 * Math.PI, false);
+    ctx.arc(this.x2pos, this.y2pos, 25, 0, 2 * Math.PI, false);
     ctx.fill();
     ctx.strokeStyle = "rgba(255, 255, 255, 25)";
     //CHANGE STROKE WIDTH WEIGHT THING?
@@ -129,7 +130,7 @@
     ctx.fill();
   };
 
-  randomWalker.prototype.intersectsWith = function(otherWalker){
+  RandomWalker.prototype.intersectsWith = function(otherWalker){
     var x1 = this.xpos;
     var y1 = this.ypos;
     var x2 = this.x2pos;

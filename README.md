@@ -10,8 +10,10 @@ ________________________________________________________________________--
 
 
 NEXT:
-walker mode: random walker just walks and has a color, walkermode handles drawing and filling?
 UPDATE code to use pixel class instead of hacky array representation.
+THEN:
+walker mode: random walker just walks and has a color, walkermode handles drawing and filling?
+
 
 TODO/BUGS/TECHNICAL DEBT:
 * TOOL TIPS!

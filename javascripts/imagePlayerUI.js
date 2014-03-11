@@ -1,7 +1,8 @@
 (function(root){
+  "use strict";
   var imagePlayer = root.imagePlayer = (root.imagePlayer || {});
 
-  PlayerUI = imagePlayer.PlayerUI = function(player, saver){
+  var PlayerUI = imagePlayer.PlayerUI = function(player, saver){
     this.player = player;
     this.saver = saver;
     this.installListeners();

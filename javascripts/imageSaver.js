@@ -1,4 +1,5 @@
 (function(root){
+  "use strict";
   var imagePlayer = root.imagePlayer = (root.imagePlayer || {});
 
   var Saver = imagePlayer.Saver = function(canvas){
