@@ -1,10 +1,6 @@
 (function(root){
   "use strict";
 
-
-//?????????????????????????????///
-///
-
   var PixelArray = root.PixelArray = function(ctx, w, h){
     this._pixels = ctx.getImageData(0, 0, w, h).data;
     this.w = w;
@@ -26,6 +22,11 @@
     return this.getPixel(coords[0], coords[1]);
   };
 
+  PixelArray.prototype.centerPixel = function(){
+    var coords = this.centerCoords();
+    return this.getPixel(coords[0], coords[1]);
+  };
+
   PixelArray.prototype.randomCoords = function(){
     var x = Math.floor(Math.random() * this.w);
     var y = Math.floor(Math.random() * this.h);
@@ -36,15 +37,6 @@
     return [this.w / 2, this.h / 2];
   };
 
-//////////////////////////////////////erm pixels job to know? BUTTT make method to get color at x/y directly?
-  // PixelArray.prototype.getColor = function(pixel, alpha){
-  //   if(alpha !== undefined){
-  //     pixel[3] = alpha;
-  //   }//is this a horrible thing to do? maybe... maybe...
-  //   return "rgba(" + pixel.join(",") + ")";
-  // };
-  ///////////////////////////////////////////
-
   PixelArray.prototype.getRow = function(y){
     var pixels = [];
     for(var i = 0; i < this.w; i++){
@@ -53,11 +45,22 @@
     }
     return pixels;
   };
-  //THESE ARE AWFULLY SIMILAR. also don't know bout this alpha business...maybe return the pixels and have something else turn themt o rgba??
+
   PixelArray.prototype.getCol = function(x){
     var pixels = [];
     for(var i = 0; i < this.h; i++){
       var pixel = this.getPixel(x, i);
+      pixels.push(pixel);
+    }
+    return pixels;
+  };
+
+//is this any better?
+  PixelArray.prototype.getA = function(type, coord){
+    var pixels = [];
+    var limit = (type === "row") ? this.w : this.h;
+    for(var i = 0; i < limit; i++){
+      var pixel = (type === "row") ? this.getPixel(i, coord) : this.getPixel(coord, i);
       pixels.push(pixel);
     }
     return pixels;
