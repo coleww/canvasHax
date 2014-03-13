@@ -15,7 +15,6 @@
     if(alphaVal !== undefined){
       alpha = alphaVal;
     }
-
     return "rgba(" + red + "," + green + "," + blue + "," + alpha + ")";
   };
 })(this);

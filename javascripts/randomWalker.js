@@ -1,7 +1,6 @@
 (function(root){
   "use strict";
-// take pixel, w, h, and options.
-// one of options is like "origin" which if true means this.xpos = this.pixel.xpos or something
+
   var RandomWalker = root.RandomWalker = function(pixel, w, h, x, y){
     this.pixel = pixel;
     this.dirs = [-1, 0, 1];
@@ -18,18 +17,11 @@
       this.xpos = x;
       this.ypos = y;
     }
-
     this.setRandomDirection();
-    this.move(5);//so x2y2 get set. it's lame, i know. move 5 so it sets. ugh. refactor this.
+    this.move(5);
   };
 
   RandomWalker.prototype.move = function(distance){
-
-//random random
-    // this.xpos += this.dirs.sample();
-    // this.ypos += this.dirs.sample();
-
-//liney random
     this.xpos += this.xdir;
     this.ypos += this.ydir;
     this.x2pos = this.xpos + this.xdir * distance;
@@ -62,7 +54,7 @@
     var y3 = otherWalker.ypos;
     var x4 = otherWalker.x2pos;
     var y4 = otherWalker.y2pos;
-    // args /\   generic intersects func \/
+
     var bx = x2 - x1;
     var by = y2 - y1;
     var dx = x4 - x3;
