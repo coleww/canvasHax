@@ -1,0 +1,31 @@
+.current-image {
+  display:inline-block;
+}
+
+.buttons {
+  display: inline-block;
+  margin: 5px;
+}
+
+.slider-opt {
+  display: inline-block;
+  width: 75px;
+}
+
+.sliders {
+  display: inline-block;
+}
+
+.hide {
+  display: none;
+}
+
+.opts {
+  display: inline-block;
+  vertical-align: top;
+  margin-left: 5px;
+}
+
+.container {
+  margin-left: 50px;
+}
