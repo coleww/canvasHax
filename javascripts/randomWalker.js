@@ -11,8 +11,8 @@
     this.x2pos = null;
     this.y2pos = null;
     if (x === undefined || y === undefined){
-      this.xpos = Math.floor(Math.random() * w);
-      this.ypos = Math.floor(Math.random() * h);
+      this.xpos = ~~(Math.random() * w);
+      this.ypos = ~~(Math.random() * h);
     } else {
       this.xpos = x;
       this.ypos = y;

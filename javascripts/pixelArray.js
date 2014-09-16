@@ -28,8 +28,8 @@
   };
 
   PixelArray.prototype.randomCoords = function(){
-    var x = Math.floor(Math.random() * this.w);
-    var y = Math.floor(Math.random() * this.h);
+    var x = ~~(Math.random() * this.w);
+    var y = ~~(Math.random() * this.h);
     return [x, y];
   };
 
